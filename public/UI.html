@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ThirdPowerLit - UI Design</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#121212',
+            secondary: {
+              DEFAULT: '#D4AF37',
+              light: '#F9D776',
+              dark: '#996515'
+            },
+            dark: {
+              lighter: '#1a1a1a',
+              light: '#222222',
+              DEFAULT: '#121212',
+              dark: '#0a0a0a'
+            }
+          },
+          backgroundImage: {
+            'gold-gradient': 'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      color: white;
+      background-color: #0a0a0a;
+    }
+    
+    .page-container {
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      overflow-x: auto;
+      min-height: 100vh;
+      padding: 20px;
+      scroll-snap-type: x mandatory;
+    }
+    
+    .page {
+      flex: 0 0 auto;
+      width: 390px;
+      margin-right: 50px;
+      background: #121212;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+      scroll-snap-align: start;
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+
+    .page-title {
+      padding: 15px;
+      background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+      color: #121212;
+      font-weight: bold;
+      text-align: center;
+    }
+
+    .page-content {
+      height: calc(100vh - 50px);
+      overflow-y: auto;
+      /* Hide scrollbar for Chrome, Safari and Opera */
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    .page-content::-webkit-scrollbar {
+      display: none;
+    }
+    
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    
+    .glass {
+      background: rgba(26, 26, 26, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .glass-gold {
+      background: rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .coming-soon {
+      background: #121212;
+      background-image: radial-gradient(rgba(212, 175, 55, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="py-4 px-6">
+    <h1 class="text-center text-3xl font-bold mb-4">
+      <span class="bg-gold-gradient text-transparent bg-clip-text">ThirdPowerLit UI Design</span>
+    </h1>
+    <p class="text-center text-gray-400 mb-4">Swipe horizontally to view all pages</p>
+  </div>
+  
+  <div class="page-container">
+    <!-- Home Page -->
+    <div class="page glass-gold">
+      <div class="page-title">Home Page</div>
+      <div class="page-content">
+        <iframe src="/home-preview.html"></iframe>
+      </div>
+    </div>
+    
+    <!-- Services Page -->
+    <div class="page glass-gold">
+      <div class="page-title">Services Page</div>
+      <div class="page-content">
+        <iframe src="/services-preview.html"></iframe>
+      </div>
+    </div>
+    
+    <!-- Portfolio Page -->
+    <div class="page glass-gold">
+      <div class="page-title">Portfolio Page</div>
+      <div class="page-content">
+        <iframe src="/portfolio-preview.html"></iframe>
+      </div>
+    </div>
+    
+    <!-- About Page -->
+    <div class="page glass-gold">
+      <div class="page-title">About Page</div>
+      <div class="page-content">
+        <iframe src="/about-preview.html"></iframe>
+      </div>
+    </div>
+    
+    <!-- Contact Page -->
+    <div class="page glass-gold">
+      <div class="page-title">Contact Page</div>
+      <div class="page-content">
+        <iframe src="/contact-preview.html"></iframe>
+      </div>
+    </div>
+  </div>
+</body>
+</html> 

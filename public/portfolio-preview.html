@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Portfolio - ThirdPowerLit</title>
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            primary: '#121212',
+            secondary: {
+              DEFAULT: '#D4AF37',
+              light: '#F9D776',
+              dark: '#996515'
+            },
+            dark: {
+              lighter: '#1a1a1a',
+              light: '#222222',
+              DEFAULT: '#121212',
+              dark: '#0a0a0a'
+            }
+          },
+          backgroundImage: {
+            'gold-gradient': 'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    body {
+      background-color: #121212;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+      margin: 0;
+      padding: 0;
+      /* Hide scrollbar */
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+    
+    /* Hide scrollbar for Chrome, Safari and Opera */
+    body::-webkit-scrollbar {
+      display: none;
+    }
+    
+    .text-gold {
+      color: #D4AF37;
+    }
+    
+    .glass {
+      background: rgba(26, 26, 26, 0.5);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    .glass-gold {
+      background: rgba(212, 175, 55, 0.15);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(212, 175, 55, 0.2);
+    }
+    
+    .bg-gold-gradient {
+      background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="glass sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <!-- Logo -->
+      <div class="font-bold text-2xl cursor-pointer text-gold">
+        ThirdPowerLit
+      </div>
+      
+      <!-- Menu Button (Mobile) -->
+      <div class="md:hidden">
+        <button class="focus:outline-none text-white">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+  
+  <!-- Portfolio Hero -->
+  <section class="py-16 px-4 bg-dark-lighter">
+    <div class="container mx-auto">
+      <h1 class="text-5xl md:text-7xl font-bold mb-6 text-gold">MY PORTFOLIO</h1>
+      <p class="text-lg md:text-xl max-w-3xl text-gray-300">
+        EXPLORE MY FEATURED PROJECTS SHOWCASING MY SKILLS AND EXPERIENCE
+        IN WEB DEVELOPMENT, DESIGN, PHOTOGRAPHY, AND CREATIVE SERVICES.
+      </p>
+    </div>
+  </section>
+  
+  <!-- Filter Categories -->
+  <section class="py-8 px-4 glass">
+    <div class="container mx-auto">
+      <div class="flex flex-wrap justify-center">
+        <button class="px-6 py-2 mx-2 my-2 rounded-full border bg-gold-gradient text-primary border-secondary">
+          All
+        </button>
+        <button class="px-6 py-2 mx-2 my-2 rounded-full border text-gray-300 border-gray-700 hover:border-secondary">
+          Web Development
+        </button>
+        <button class="px-6 py-2 mx-2 my-2 rounded-full border text-gray-300 border-gray-700 hover:border-secondary">
+          Photography
+        </button>
+        <button class="px-6 py-2 mx-2 my-2 rounded-full border text-gray-300 border-gray-700 hover:border-secondary">
+          Web Design
+        </button>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Portfolio Grid -->
+  <section class="py-16 px-4">
+    <div class="container mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Project 1 -->
+        <div class="glass overflow-hidden rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+          <div class="relative h-64 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+              alt="E-commerce Website" 
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <button class="px-4 py-2 bg-gold-gradient text-primary rounded-full flex items-center">
+                View Project
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-2">
+              <span class="text-gold text-sm uppercase tracking-wider">Web Development</span>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-gold">MODERN E-COMMERCE</h3>
+            <p class="text-gray-300 text-sm line-clamp-2">
+              A fully responsive e-commerce platform built with React and Node.js, featuring a sleek user interface, product filtering, and secure checkout process.
+            </p>
+            <div class="mt-4 flex flex-wrap">
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">React</span>
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Node.js</span>
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">E-commerce</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 2 -->
+        <div class="glass overflow-hidden rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+          <div class="relative h-64 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" 
+              alt="Fashion Photography" 
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <button class="px-4 py-2 bg-gold-gradient text-primary rounded-full flex items-center">
+                View Project
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-2">
+              <span class="text-gold text-sm uppercase tracking-wider">Photography</span>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-gold">FASHION PHOTOGRAPHY</h3>
+            <p class="text-gray-300 text-sm line-clamp-2">
+              A high-end fashion photography series showcasing seasonal collection for a luxury clothing brand, emphasizing elegant composition and dramatic lighting.
+            </p>
+            <div class="mt-4 flex flex-wrap">
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Photography</span>
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Fashion</span>
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Editing</span>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Project 3 -->
+        <div class="glass overflow-hidden rounded-lg cursor-pointer transform transition-all duration-300 hover:scale-[1.02] hover:shadow-xl">
+          <div class="relative h-64 overflow-hidden">
+            <img 
+              src="https://images.unsplash.com/photo-1547119957-637f8679db1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" 
+              alt="Minimalist Portfolio" 
+              class="w-full h-full object-cover transition-transform duration-500 hover:scale-110"
+            />
+            <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
+              <button class="px-4 py-2 bg-gold-gradient text-primary rounded-full flex items-center">
+                View Project
+                <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                </svg>
+              </button>
+            </div>
+          </div>
+          <div class="p-6">
+            <div class="flex items-center mb-2">
+              <span class="text-gold text-sm uppercase tracking-wider">Web Design</span>
+            </div>
+            <h3 class="text-xl font-bold mb-2 text-gold">MINIMALIST PORTFOLIO</h3>
+            <p class="text-gray-300 text-sm line-clamp-2">
+              A clean and minimal portfolio website for a graphic designer, featuring a custom grid layout, subtle animations, and optimized image loading for performance.
+            </p>
+            <div class="mt-4 flex flex-wrap">
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Web Design</span>
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Portfolio</span>
+              <span class="text-xs mr-2 mb-2 px-2 py-1 rounded-full bg-secondary/10 text-gray-300">Minimalist</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- Client Testimonials -->
+  <section class="py-16 px-4 bg-dark-lighter">
+    <div class="container mx-auto">
+      <h2 class="text-4xl font-bold mb-12 text-center text-gold">CLIENT TESTIMONIALS</h2>
+      
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="glass p-8 rounded-lg">
+          <div class="text-secondary text-3xl mb-6">❞</div>
+          <p class="text-gray-300 mb-6">
+            "Working with Third Power Lit was a game-changer for our brand. The website they designed perfectly captures our vision and has significantly increased our online presence."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-600 mr-4"></div>
+            <div>
+              <p class="font-bold text-gold">Sarah Johnson</p>
+              <p class="text-gray-400 text-sm">CEO, Fashion Forward</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass p-8 rounded-lg">
+          <div class="text-secondary text-3xl mb-6">❞</div>
+          <p class="text-gray-300 mb-6">
+            "The photography and retouching services exceeded our expectations. Every detail was meticulously handled, and the final results perfectly highlighted our products."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-600 mr-4"></div>
+            <div>
+              <p class="font-bold text-gold">Michael Rodriguez</p>
+              <p class="text-gray-400 text-sm">Marketing Director, LuxGoods</p>
+            </div>
+          </div>
+        </div>
+        
+        <div class="glass p-8 rounded-lg">
+          <div class="text-secondary text-3xl mb-6">❞</div>
+          <p class="text-gray-300 mb-6">
+            "Exceptional UI/UX design work on our app. The attention to detail and user-centered approach significantly improved our user engagement and retention rates."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 rounded-full bg-gray-600 mr-4"></div>
+            <div>
+              <p class="font-bold text-gold">Emily Chen</p>
+              <p class="text-gray-400 text-sm">Product Manager, HealthTech</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <!-- CTA Section -->
+  <section class="py-16 px-4 glass-gold">
+    <div class="container mx-auto text-center">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6 text-gold">HAVE A PROJECT IN MIND?</h2>
+      <p class="text-lg max-w-2xl mx-auto mb-10 text-gray-300">
+        Let's collaborate to create something exceptional that meets your goals and exceeds your expectations.
+      </p>
+      <button class="bg-gold-gradient text-primary px-8 py-3 inline-flex items-center font-bold hover:opacity-90 transition-opacity duration-300 rounded-md">
+        Contact Me
+        <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+        </svg>
+      </button>
+    </div>
+  </section>
+</body>
+</html> 
