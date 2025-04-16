@@ -4,6 +4,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { TextPlugin } from 'gsap/TextPlugin';
 import * as Animations from '../utils/animations';
+import trackAppImage from '../assets/Track-App-Screenshot.png';
+import dataVisualizationImage from '../assets/data-visualization-cover.png';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
@@ -362,28 +364,28 @@ const HomePage = ({ navigateTo }) => {
             <div className="w-full md:w-1/3 group cursor-pointer" onClick={() => navigateTo('portfolio')}>
               <div className="overflow-hidden glass rounded-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80" 
-                  alt="Web Design Project" 
+                  src={trackAppImage}
+                  alt="Track & Field Team Management System" 
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>
               <div className="mt-4">
                 <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">WEB DESIGN</span>
-                <h3 className="text-xl font-bold">Corporate Website Redesign</h3>
+                <h3 className="text-xl font-bold">Marlboro Track & Field Team Management System</h3>
               </div>
             </div>
             
             <div className="w-full md:w-1/3 group cursor-pointer" onClick={() => navigateTo('portfolio')}>
               <div className="overflow-hidden glass rounded-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" 
-                  alt="Mobile App Project" 
+                  src={dataVisualizationImage} 
+                  alt="Data Visualization Project" 
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>
               <div className="mt-4">
-                <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">MOBILE APP</span>
-                <h3 className="text-xl font-bold">Fitness Tracking Application</h3>
+                <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">WEB DESIGN</span>
+                <h3 className="text-xl font-bold">Nutrition & Obesity: Data Visualization</h3>
               </div>
             </div>
             

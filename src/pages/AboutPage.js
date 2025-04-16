@@ -31,7 +31,7 @@ const AboutPage = ({ navigateTo }) => {
             <div className="w-full md:w-1/2">
               <h2 className="text-4xl font-bold mb-6 text-gold">MY JOURNEY</h2>
               <p className="text-gray-300 mb-6">
-                I'm a multi-disciplinary creative with over five years of experience in design, 
+                My name is Eugene Lit Graves III, I'm a multi-disciplinary creative with over five years of experience in design, 
                 development, and visual storytelling. My journey began with a deep passion for 
                 photography, digital and visual arts, which evolved into a comprehensive understanding 
                 of digital media and web technologies.
