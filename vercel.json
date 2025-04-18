@@ -5,8 +5,9 @@
       "src": "package.json",
       "use": "@vercel/static-build",
       "config": {
-        "buildCommand": "npm run build",
-        "outputDirectory": "build"
+        "buildCommand": "bash ./vercel.build.sh",
+        "outputDirectory": "build",
+        "installCommand": "npm install --legacy-peer-deps"
       }
     }
   ],
@@ -39,5 +40,8 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "github": {
+    "silent": true
+  }
 } 
