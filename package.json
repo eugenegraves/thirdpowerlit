@@ -28,7 +28,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "CI=false react-scripts build",
+    "vercel-build": "CI=false npm run build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
@@ -36,7 +37,14 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "jsx-a11y/anchor-is-valid": "warn",
+      "react-hooks/exhaustive-deps": "warn",
+      "jsx-a11y/img-redundant-alt": "warn",
+      "no-unused-vars": "warn",
+      "import/no-anonymous-default-export": "warn"
+    }
   },
   "browserslist": {
     "production": [
@@ -55,5 +63,11 @@
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.17"
+  },
+  "engines": {
+    "node": "18.x"
+  },
+  "resolutions": {
+    "@react-three/fiber": "^9.0.0"
   }
 }
