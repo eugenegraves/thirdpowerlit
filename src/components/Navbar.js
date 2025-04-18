@@ -120,8 +120,9 @@ const Navbar = ({ currentPage, navigateTo }) => {
           ref={logoRef}
           className="font-bold text-2xl cursor-pointer text-gold" 
           onClick={() => navigateTo('home')}
+          style={{ WebkitFontSmoothing: 'subpixel-antialiased' }}
         >
-          ThirdPowerLit
+          Lit³
         </div>
 
         {/* Desktop Navigation */}

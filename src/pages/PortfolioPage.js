@@ -2,21 +2,49 @@ import React, { useState, useEffect } from 'react';
 import { gsap } from 'gsap';
 import albumCoverImage from '../assets/Sitting-HeadDown-Halo-AlbumCover-Edit.jpg';
 import moneyAlbumCoverImage from '../assets/money-album-cover.JPG';
-
+import linguaFluxImage from '../assets/LingaFlux-Home.png';
+import malrboroImage from '../assets/Track-App-Screenshot.png';
+import trackAppImage1 from '../assets/marlboro_login.png';
+import trackAppImage2 from '../assets/dashboard_pic.png';
+import trackAppImage3 from '../assets/inventory.png';
+import dataImage1 from '../assets/data-image-1.png';
+import dataImage2 from '../assets/data-image-2.png';
+import dataImage3 from '../assets/data-image-3.png';
+import sessaProfileImage from '../assets/sessa-profile.png';
 const projects = [
+  {
+    id: 4,
+    title: 'Marlboro Track & Field Team Management System',
+    category: 'UI/UX Design',
+    description: 'A comprehensive back-office management solution designed for Marlboro\'s coaching staff to streamline athletic program operations. Features include roster management, equipment inventory tracking, practice scheduling, team announcements, performance analytics, and event coordination—all within an intuitive dashboard that prioritizes efficiency and reduces administrative overhead.',
+    image: `${malrboroImage}`,
+    images: [
+      `${trackAppImage1}`,
+      `${trackAppImage2}`,
+      `${trackAppImage3}`
+    ],
+    tags: ['React', 'Firebase', 'Three.js', 'Express.js'],
+    url: '',
+    client: 'Marlboro High School Track & Field',
+    date: 'April 2025',
+    services: ['UI/UX Design', 'Web Application Development', 'Software Architecture']
+  },
   {
     id: 1,
     title: 'A Data Visualization: Nutrition → Obesity',
     category: 'Web Development',
     description: 'A data visualization project that explores the relationship between nutrition and obesity. The project uses a dataset of nutrition and obesity statistics to create a visual representation of the relationship between the two. This project is complete with responsive design principles & intereactive animations/effects.',
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
+    image: `${dataImage2}`,
     images: [
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
+      `${dataImage1}`,
+      `${dataImage2}`,
+      `${dataImage3}`
     ],
-    tags: ['React', 'Node.js', 'Data Visualization', 'Responsive Design', 'Interactive Animations', 'Health & Nutrition'],
-    url: 'https://eugenegraves.github.io/The-Effects-of-Diet-on-Obesity/'
+    tags: ['React', 'Node.js', 'Vite', 'GSAP', 'Recharts'],
+    url: 'https://eugenegraves.github.io/The-Effects-of-Diet-on-Obesity/',
+    client: 'Health Research Institute',
+    date: 'March 2025',
+    services: ['Data Analysis', 'Web Development', 'UI Design']
   },
   {
     id: 2,
@@ -28,65 +56,27 @@ const projects = [
       `${albumCoverImage}`,
       `${moneyAlbumCoverImage}`
     ],
-    tags: ['Photography', 'Adobe Photoshop', 'Adobe Lightroom', 'Music', 'Editing'],
-    url: ''
+    tags: ['Panasonic LUMIX FZ300', 'Adobe Photoshop', 'Adobe Lightroom'],
+    url: '',
+    client: 'Self',
+    date: 'March 2025',
+    services: ['Photography', 'Photo Editing', 'Graphic Design']
   },
   {
     id: 3,
-    title: 'MINIMALIST PORTFOLIO',
+    title: 'LinguaFlux: New & Improved Google Translate',
     category: 'Web Design',
-    description: 'A clean and minimal portfolio website for a graphic designer, featuring a custom grid layout, subtle animations, and optimized image loading for performance.',
-    image: 'https://images.unsplash.com/photo-1547119957-637f8679db1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80',
+    description: 'A reimagined language translation platform that enhances communication across cultures. Featuring real-time translation in 75+ languages, AI-powered contextual understanding, custom terminology management, and a sleek, intuitive interface that prioritizes accessibility and user experience.',
+    image: `${linguaFluxImage}`,
     images: [
-      'https://images.unsplash.com/photo-1547119957-637f8679db1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80',
-      'https://images.unsplash.com/photo-1520333789090-1afc82db536a?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1471&q=80',
-      'https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80'
+      `${linguaFluxImage}`
     ],
-    tags: ['Web Design', 'Portfolio', 'Minimalist', 'Animation'],
-    url: ''
+    tags: ['React', 'Vite', 'API Integration', 'GSAP', 'Three.js'],
+    url: 'https://lingua-flux.vercel.app',
+    client: 'Self',
+    date: 'March 2025',
+    services: ['Web Design', 'UX Research', 'Front-end Development']
   },
-  {
-    id: 4,
-    title: 'PRODUCT RETOUCHING',
-    category: 'Editing',
-    description: 'Professional product photo retouching for a cosmetics brand, focusing on color correction, texture enhancement, and creating a cohesive visual style across the product line.',
-    image: 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80',
-      'https://images.unsplash.com/photo-1556228453-efd6c1ff04f6?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1556228720-195a672e8a03?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-    ],
-    tags: ['Retouching', 'Product', 'Photography', 'Editing'],
-    url: ''
-  },
-  {
-    id: 5,
-    title: 'CORPORATE IDENTITY',
-    category: 'Branding',
-    description: 'Complete brand identity design for a financial tech startup, including logo design, color palette, typography system, and digital asset guidelines.',
-    image: 'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1586281380349-632531db7ed4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1611532736597-8bc8d1ede447?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-    ],
-    tags: ['Branding', 'Logo Design', 'Identity', 'Guidelines'],
-    url: ''
-  },
-  {
-    id: 6,
-    title: 'MOBILE APP UI/UX',
-    category: 'UI/UX Design',
-    description: 'User interface and experience design for a health and wellness mobile application, with a focus on accessibility, intuitive navigation, and engaging visual elements.',
-    image: 'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-    images: [
-      'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1621274282255-de20a8208739?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80',
-      'https://images.unsplash.com/photo-1605296867724-fa87a8ef53fd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80'
-    ],
-    tags: ['UI/UX', 'Mobile App', 'Health', 'Design'],
-    url: ''
-  }
 ];
 
 const categories = [
@@ -409,13 +399,13 @@ const PortfolioPage = () => {
                 <h3 className="text-xl font-bold mb-3 text-gold">Project Details</h3>
                 <ul className="text-gray-300">
                   <li className="mb-2">
-                    <span className="font-semibold text-secondary-light">Client:</span> Client Name
+                    <span className="font-semibold text-secondary-light">Client:</span> {activeProject.client}
                   </li>
                   <li className="mb-2">
-                    <span className="font-semibold text-secondary-light">Date:</span> January 2023
+                    <span className="font-semibold text-secondary-light">Date:</span> {activeProject.date}
                   </li>
                   <li className="mb-2">
-                    <span className="font-semibold text-secondary-light">Services:</span> {activeProject.category}
+                    <span className="font-semibold text-secondary-light">Services:</span> {activeProject.services.join(', ')}
                   </li>
                 </ul>
               </div>
@@ -479,45 +469,19 @@ const PortfolioPage = () => {
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center text-gold">CLIENT TESTIMONIALS</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="glass p-8 rounded-lg">
+          <div className="flex justify-center">
+            <div className="glass p-8 rounded-lg max-w-2xl">
               <div className="text-secondary text-3xl mb-6">❞</div>
               <p className="text-gray-300 mb-6">
-                "Working with Third Power Lit was a game-changer for our brand. The website they designed perfectly captures our vision and has significantly increased our online presence."
+                "The Track & Field Management System built by Eugene revolutionized how we organize our team. The custom software streamlined athlete performance tracking, meet scheduling, and record management - saving us countless hours and improving our training effectiveness."
               </p>
               <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-gray-600 mr-4"></div>
-                <div>
-                  <p className="font-bold text-gold">Sarah Johnson</p>
-                  <p className="text-gray-400 text-sm">CEO, Fashion Forward</p>
+                <div className="w-12 h-12 rounded-full bg-gray-600 mr-4 overflow-hidden">
+                  <img src={sessaProfileImage} alt="Anthony Sessa" className="w-full h-full object-cover" />
                 </div>
-              </div>
-            </div>
-            
-            <div className="glass p-8 rounded-lg">
-              <div className="text-secondary text-3xl mb-6">❞</div>
-              <p className="text-gray-300 mb-6">
-                "The photography and retouching services exceeded our expectations. Every detail was meticulously handled, and the final results perfectly highlighted our products."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-gray-600 mr-4"></div>
                 <div>
-                  <p className="font-bold text-gold">Michael Rodriguez</p>
-                  <p className="text-gray-400 text-sm">Marketing Director, LuxGoods</p>
-                </div>
-              </div>
-            </div>
-            
-            <div className="glass p-8 rounded-lg">
-              <div className="text-secondary text-3xl mb-6">❞</div>
-              <p className="text-gray-300 mb-6">
-                "Exceptional UI/UX design work on our app. The attention to detail and user-centered approach significantly improved our user engagement and retention rates."
-              </p>
-              <div className="flex items-center">
-                <div className="w-12 h-12 rounded-full bg-gray-600 mr-4"></div>
-                <div>
-                  <p className="font-bold text-gold">Emily Chen</p>
-                  <p className="text-gray-400 text-sm">Product Manager, HealthTech</p>
+                  <p className="font-bold text-gold">Anthony Sessa</p>
+                  <p className="text-gray-400 text-sm">Head Coach, MHS Track & Field</p>
                 </div>
               </div>
             </div>

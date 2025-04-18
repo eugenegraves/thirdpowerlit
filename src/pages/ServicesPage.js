@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import * as Animations from '../utils/animations';
+import cameraImage from '../assets/panasonic-lumix-fz300-01.jpg.webp';
+import webDevImage from '../assets/What-is-website-development.jpg';
+import uiUXImage from '../assets/c00bce58c817ec3a16945711111641d37320ae67-2240x1260.webp';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -11,46 +14,106 @@ const ServiceCard = ({ number, title, description, image, isActive = false }) =>
   
   useEffect(() => {
     if (cardRef.current) {
-      // Add hover effect
+      // Add hover effect with smoother transitions
       const card = cardRef.current;
       const imageEl = card.querySelector('img');
+      const cardContent = card.querySelector('.flex');
+      const cardContainer = card.parentElement;
       
-      card.addEventListener('mouseenter', () => {
-        gsap.to(card, {
-          y: -10,
-          duration: 0.3,
-          ease: "power2.out",
-          boxShadow: "0 10px 30px rgba(212, 175, 55, 0.2)"
+      // Create a timeline for coordinated animations
+      let enterTl, leaveTl;
+      
+      const enterAnimation = () => {
+        // Kill any active animations first to prevent conflicts
+        if (leaveTl) leaveTl.kill();
+        
+        enterTl = gsap.timeline({
+          defaults: { 
+            ease: "circ.out", 
+            overwrite: true 
+          }
         });
         
-        gsap.to(imageEl, {
-          scale: 1.05,
-          duration: 0.5,
-          ease: "power1.out"
-        });
-      });
+        enterTl
+          .to(cardContainer, {
+            zIndex: 10,
+            duration: 0.01
+          }, 0)
+          .to(card, {
+            y: -15,
+            duration: 0.6,
+            boxShadow: "0 12px 20px -10px rgba(212, 175, 55, 0.3), 0 4px 20px -5px rgba(0, 0, 0, 0.2)",
+            transformOrigin: "center bottom"
+          }, 0)
+          .to(cardContent, {
+            scale: 1.01,
+            duration: 0.7,
+          }, 0)
+          .to(imageEl, {
+            scale: 1.08,
+            duration: 0.8,
+            ease: "power4.out"
+          }, 0);
+      };
       
-      card.addEventListener('mouseleave', () => {
-        gsap.to(card, {
-          y: 0,
-          duration: 0.3,
-          ease: "power2.out",
-          boxShadow: "none"
+      const leaveAnimation = () => {
+        // Kill any active animations first
+        if (enterTl) enterTl.kill();
+        
+        leaveTl = gsap.timeline({
+          defaults: { 
+            ease: "power2.inOut", 
+            overwrite: true
+          }
         });
         
-        gsap.to(imageEl, {
-          scale: 1,
-          duration: 0.5,
-          ease: "power1.out"
-        });
-      });
+        leaveTl
+          .to(card, {
+            y: 0,
+            boxShadow: "none",
+            duration: 0.5,
+            clearProps: "boxShadow"
+          }, 0)
+          .to(cardContent, {
+            scale: 1,
+            duration: 0.5,
+          }, 0)
+          .to(imageEl, {
+            scale: 1,
+            duration: 0.5,
+          }, 0)
+          .to(cardContainer, {
+            zIndex: 1,
+            duration: 0.01,
+            delay: 0.5
+          });
+      };
+      
+      // Force initial state to ensure card is visible
+      gsap.set(card, { opacity: 1, y: 0, scale: 1 });
+      gsap.set(cardContent, { scale: 1, opacity: 1 });
+      gsap.set(imageEl, { scale: 1, opacity: 1 });
+      gsap.set(cardContainer, { zIndex: 1 });
+      
+      // Use a single event listener and add/remove it on mount/unmount
+      card.addEventListener('mouseenter', enterAnimation);
+      card.addEventListener('mouseleave', leaveAnimation);
+      
+      // Cleanup event listeners and any running animations
+      return () => {
+        card.removeEventListener('mouseenter', enterAnimation);
+        card.removeEventListener('mouseleave', leaveAnimation);
+        if (enterTl) enterTl.kill();
+        if (leaveTl) leaveTl.kill();
+      };
     }
   }, []);
 
   return (
     <div 
       ref={cardRef}
-      className={`relative w-full rounded-lg overflow-hidden mb-8 ${isActive ? 'glass-gold' : 'glass'}`}
+      className={`relative w-full rounded-lg overflow-hidden mb-8 ${isActive ? 'glass-gold' : 'glass'} hover:z-10`}
+      style={{ isolation: 'isolate' }}
     >
       <div className="flex flex-col md:flex-row">
         {/* Service number and title */}
@@ -118,23 +181,18 @@ const ServicesPage = ({ navigateTo }) => {
     if (servicesRef.current) {
       const serviceCards = servicesRef.current.querySelectorAll('div[class*="relative w-full rounded-lg"]');
       
-      ScrollTrigger.create({
-        trigger: servicesRef.current,
-        start: "top 70%",
-        onEnter: () => {
-          gsap.fromTo(
-            serviceCards,
-            { x: -100, opacity: 0 },
-            { 
-              x: 0, 
-              opacity: 1, 
-              stagger: 0.3, 
-              duration: 0.8, 
-              ease: "power3.out" 
-            }
-          );
-        },
-        once: true
+      // Set initial state to be visible but slightly off-position for animation
+      gsap.set(serviceCards, { opacity: 1, x: -30 });
+      
+      // Create an immediate animation instead of waiting for scroll
+      gsap.to(serviceCards, { 
+        x: 0, 
+        opacity: 1, 
+        stagger: 0.15, 
+        duration: 0.5, 
+        ease: "power3.out",
+        clearProps: "transform",
+        delay: 0.3 // Small delay to ensure cards are properly rendered
       });
       
       // Add subtle float animation to the active card
@@ -145,7 +203,8 @@ const ServicesPage = ({ navigateTo }) => {
           duration: 1.5,
           repeat: -1,
           yoyo: true,
-          ease: "sine.inOut"
+          ease: "sine.inOut",
+          delay: 1 // Wait for the initial animation to complete
         });
       }
     }
@@ -312,7 +371,7 @@ const ServicesPage = ({ navigateTo }) => {
       {/* Services Hero */}
       <section ref={heroRef} className="py-16 px-4 bg-dark-lighter animated-bg">
         <div className="container mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gold">THE SERVICES WE<br />PROVIDE</h1>
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gold">AVAILABLE SERVICES</h1>
           <p className="text-lg md:text-xl max-w-3xl text-gray-300">
             OFFERING COMPREHENSIVE CREATIVE SOLUTIONS THAT COMBINE TECHNICAL EXPERTISE 
             WITH ARTISTIC VISION TO DELIVER EXCEPTIONAL RESULTS FOR CLIENTS.
@@ -322,27 +381,27 @@ const ServicesPage = ({ navigateTo }) => {
       
       {/* Services List */}
       <section ref={servicesRef} className="py-16 px-4">
-        <div className="container mx-auto">
+        <div className="container mx-auto space-y-12">
           <ServiceCard 
             number="01"
             title="UI/UX DESIGN"
-            description="Creating intuitive, user-friendly interfaces that enhance user experience while maintaining aesthetic appeal. Our UI/UX design process includes research, wireframing, prototyping, and testing to ensure optimal results that meet both user needs and business goals."
-            image="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-            isActive={true}
+            description="Creating intuitive, user-friendly interfaces that enhance user experience while maintaining aesthetic appeal. My UI/UX design process includes research, wireframing, prototyping, and testing to ensure optimal results that meet both user needs and/or business goals."
+            image={uiUXImage}
+            isActive={false}
           />
           
           <ServiceCard 
             number="02"
             title="WEB DESIGN & DEVELOPMENT"
-            description="Building responsive, modern websites that perform well on all devices. Our website development services include custom design, front-end and back-end development, content management systems, e-commerce solutions, and ongoing maintenance to keep your online presence strong and effective."
-            image="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80"
+            description="Building responsive, modern websites that perform well on all devices. Our website development services include custom design, front-end and back-end development, e-commerce solutions, and ongoing maintenance to keep your online presence strong and effective."
+            image={webDevImage}
           />
           
           <ServiceCard 
             number="03"
             title="PHOTOGRAPHY & EDITING"
             description="Capturing and enhancing visual content to tell your brand's story. Our photography and editing services include product photography, portrait sessions, commercial shoots, and advanced post-processing to ensure your visuals stand out with professional quality and artistic direction."
-            image="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
+            image={cameraImage}
           />
         </div>
       </section>

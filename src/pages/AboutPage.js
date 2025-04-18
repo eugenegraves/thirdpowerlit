@@ -125,12 +125,13 @@ const AboutPage = ({ navigateTo }) => {
                 <div className="flex flex-col md:flex-row items-center">
                   <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 text-right">
                     <div className="glass-gold p-6 rounded-lg">
-                      <span className="text-xs uppercase tracking-wider text-secondary-light">2019 - Present</span>
-                      <h3 className="text-xl font-bold mt-2 mb-2 text-gold">Founder & Creative Director</h3>
-                      <p className="text-sm text-gray-300">Third Power Lit</p>
+                      <span className="text-xs uppercase tracking-wider text-secondary-light">May 2024 - December 2024</span>
+                      <h3 className="text-xl font-bold mt-2 mb-2 text-gold">UI/UX Designer</h3>
+                      <p className="text-sm text-gray-300">Unique Comp, Inc.</p>
                       <p className="mt-4 text-gray-300">
-                        Founded a creative studio offering comprehensive design, development, and photography 
-                        services to clients across various industries.
+                        Implemented custom objects, fields, and workflows in Salesforce to streamline processes. 
+                        Built highly customized Lightning Web Components (LWCs) using the Salesforce Lightning Design System (SLDS) 
+                        with custom HTML, CSS, and JavaScript. Created user-centered designs that increased user retention by 30%.
                       </p>
                     </div>
                   </div>
@@ -145,55 +146,19 @@ const AboutPage = ({ navigateTo }) => {
                   <div className="md:w-1/2 md:pr-12"></div>
                   <div className="md:w-1/2 mb-6 md:mb-0 md:pl-12">
                     <div className="glass p-6 rounded-lg">
-                      <span className="text-xs uppercase tracking-wider text-secondary-light">2016 - 2019</span>
-                      <h3 className="text-xl font-bold mt-2 mb-2 text-gold">Senior UX Designer</h3>
-                      <p className="text-sm text-gray-300">Design Innovation Agency</p>
+                      <span className="text-xs uppercase tracking-wider text-secondary-light">August 2020 - May 2023</span>
+                      <h3 className="text-xl font-bold mt-2 mb-2 text-gold">Software Engineering Instructor</h3>
+                      <p className="text-sm text-gray-300">theCoderSchool Montgomery</p>
                       <p className="mt-4 text-gray-300">
-                        Led user experience design for major clients, overseeing projects from concept 
-                        through implementation while mentoring junior designers.
+                        Facilitated skill development among students, leading to award-winning performances in coding competitions. 
+                        Increased student engagement through personalized instruction, fostering deeper understanding of programming 
+                        concepts. Cultivated a supportive learning environment, empowering students of all backgrounds to excel in coding.
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
-              
-              {/* Experience 3 */}
-              <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-gold-gradient z-10"></div>
-                <div className="flex flex-col md:flex-row items-center">
-                  <div className="md:w-1/2 mb-6 md:mb-0 md:pr-12 text-right">
-                    <div className="glass p-6 rounded-lg">
-                      <span className="text-xs uppercase tracking-wider text-secondary-light">2014 - 2016</span>
-                      <h3 className="text-xl font-bold mt-2 mb-2 text-gold">Web Developer</h3>
-                      <p className="text-sm text-gray-300">Digital Solutions Co.</p>
-                      <p className="mt-4 text-gray-300">
-                        Developed responsive websites and applications for clients while collaborating 
-                        with designers to ensure optimal user experiences.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="md:w-1/2 md:pl-12"></div>
-                </div>
-              </div>
-              
-              {/* Experience 4 */}
-              <div className="relative">
-                <div className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-gold-gradient z-10"></div>
-                <div className="flex flex-col md:flex-row items-center">
-                  <div className="md:w-1/2 md:pr-12"></div>
-                  <div className="md:w-1/2 mb-6 md:mb-0 md:pl-12">
-                    <div className="glass p-6 rounded-lg">
-                      <span className="text-xs uppercase tracking-wider text-secondary-light">2012 - 2014</span>
-                      <h3 className="text-xl font-bold mt-2 mb-2 text-gold">Photographer & Retoucher</h3>
-                      <p className="text-sm text-gray-300">Visual Arts Studio</p>
-                      <p className="mt-4 text-gray-300">
-                        Shot and edited commercial photography for brands, specializing in product 
-                        and fashion photography with advanced retouching techniques.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
+
             </div>
           </div>
         </div>
@@ -204,20 +169,12 @@ const AboutPage = ({ navigateTo }) => {
         <div className="container mx-auto">
           <h2 className="text-4xl font-bold mb-12 text-center text-gold">EDUCATION</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-            <div className="glass p-8 rounded-lg">
-              <h3 className="text-2xl font-bold mb-2 text-gold">Master of Fine Arts</h3>
-              <p className="text-secondary-light mb-6">Photography & Digital Media • 2012</p>
-              <p className="text-gray-300">
-                School of Visual Arts, New York
-              </p>
-            </div>
-            
-            <div className="glass p-8 rounded-lg">
+          <div className="flex justify-center">
+            <div className="glass p-8 rounded-lg max-w-md">
               <h3 className="text-2xl font-bold mb-2 text-gold">Bachelor of Science</h3>
-              <p className="text-secondary-light mb-6">Computer Science • 2010</p>
+              <p className="text-secondary-light mb-6">Web & Information Systems • 2026</p>
               <p className="text-gray-300">
-                University of Technology, Boston
+                New Jersey Institute of Technology
               </p>
             </div>
           </div>

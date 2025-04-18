@@ -26,21 +26,28 @@ function App() {
   useEffect(() => {
     // Apply a subtle animation to the footer
     const footerElements = document.querySelectorAll('footer h2, footer p, footer a');
-    gsap.set(footerElements, { opacity: 0, y: 20 });
     
+    // Make footer elements fully visible by default
+    gsap.set(footerElements, { opacity: 1, y: 0 });
+    
+    // Always show footer content, but animate it when in view
+    const footerAnimation = () => {
+      gsap.to(footerElements, {
+        opacity: 1,
+        y: 0,
+        stagger: 0.05,
+        duration: 0.5,
+        ease: 'power2.out'
+      });
+    };
+
+    // Create a ScrollTrigger that works on all pages
     ScrollTrigger.create({
       trigger: 'footer',
-      start: 'top bottom-=100',
-      onEnter: () => {
-        gsap.to(footerElements, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.7,
-          ease: 'power2.out'
-        });
-      },
-      once: true
+      start: 'top bottom',
+      onEnter: footerAnimation,
+      onEnterBack: footerAnimation,
+      once: false
     });
     
     // Apply shimmer effect to gold text
@@ -48,7 +55,18 @@ function App() {
     if (goldElements.length > 0) {
       Animations.goldShimmer(goldElements);
     }
-  }, []);
+
+    // Clean up on component unmount
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, [currentPage]);
+
+  // Ensure footer is visible when page changes
+  useEffect(() => {
+    const footerElements = document.querySelectorAll('footer h2, footer p, footer a');
+    gsap.set(footerElements, { opacity: 1, y: 0 });
+  }, [currentPage]);
 
   // Handle page transitions
   const navigateTo = (page) => {

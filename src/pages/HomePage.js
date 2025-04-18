@@ -6,7 +6,7 @@ import { TextPlugin } from 'gsap/TextPlugin';
 import * as Animations from '../utils/animations';
 import trackAppImage from '../assets/Track-App-Screenshot.png';
 import dataVisualizationImage from '../assets/data-visualization-cover.png';
-
+import albumCoverImage from '../assets/Sitting-HeadDown-Halo-AlbumCover-Edit.jpg';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -110,15 +110,15 @@ const HomePage = ({ navigateTo }) => {
             
             switch(index) {
               case 0:
-                finalValue = 5;
-                suffix = 'M+';
+                finalValue = 10;
+                suffix = '';
                 break;
               case 1:
-                finalValue = 3;
-                suffix = 'K+';
+                finalValue = 1;
+                suffix = '';
                 break;
               case 2:
-                finalValue = 2;
+                finalValue = 4;
                 suffix = '+';
                 break;
               default:
@@ -339,15 +339,15 @@ const HomePage = ({ navigateTo }) => {
             
             <div ref={statBoxesRef} className="w-full md:w-1/2 grid grid-cols-3 gap-6">
               <div className="text-center py-8 glass rounded-lg">
-                <h3 className="text-3xl font-bold text-gold">5M+</h3>
+                <h3 className="text-3xl font-bold text-gold">10</h3>
                 <p className="text-sm mt-2 text-gray-300">SUCCESS PROJECTS</p>
               </div>
               <div className="text-center py-8 glass rounded-lg">
-                <h3 className="text-3xl font-bold text-gold">3K+</h3>
+                <h3 className="text-3xl font-bold text-gold">1</h3>
                 <p className="text-sm mt-2 text-gray-300">PRODUCT LAUNCHES</p>
               </div>
               <div className="text-center py-8 glass rounded-lg">
-                <h3 className="text-3xl font-bold text-gold">2+</h3>
+                <h3 className="text-3xl font-bold text-gold">4+</h3>
                 <p className="text-sm mt-2 text-gray-300">YEARS EXPERIENCE</p>
               </div>
             </div>
@@ -358,7 +358,7 @@ const HomePage = ({ navigateTo }) => {
       {/* Featured Project Preview */}
       <section ref={featuredSectionRef} className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">FEATURED PROJECT</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">FEATURED PROJECTS</h2>
           
           <div ref={projectsRef} className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
             <div className="w-full md:w-1/3 group cursor-pointer" onClick={() => navigateTo('portfolio')}>
@@ -370,7 +370,7 @@ const HomePage = ({ navigateTo }) => {
                 />
               </div>
               <div className="mt-4">
-                <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">WEB DESIGN</span>
+                <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">UI/UX DESIGN</span>
                 <h3 className="text-xl font-bold">Marlboro Track & Field Team Management System</h3>
               </div>
             </div>
@@ -384,7 +384,7 @@ const HomePage = ({ navigateTo }) => {
                 />
               </div>
               <div className="mt-4">
-                <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">WEB DESIGN</span>
+                <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">WEB DEVELOPMENT</span>
                 <h3 className="text-xl font-bold">Nutrition & Obesity: Data Visualization</h3>
               </div>
             </div>
@@ -392,14 +392,14 @@ const HomePage = ({ navigateTo }) => {
             <div className="w-full md:w-1/3 group cursor-pointer" onClick={() => navigateTo('portfolio')}>
               <div className="overflow-hidden glass rounded-lg">
                 <img 
-                  src="https://images.unsplash.com/photo-1542038784456-1ea8e935640e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+                  src={albumCoverImage}
                   alt="Photography Project" 
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>
               <div className="mt-4">
                 <span className="inline-block px-3 py-1 bg-secondary text-primary text-sm mb-2 rounded">PHOTOGRAPHY</span>
-                <h3 className="text-xl font-bold">Product Photography Campaign</h3>
+                <h3 className="text-xl font-bold">Albm Cover Photoshoot & Design</h3>
               </div>
             </div>
           </div>
@@ -419,11 +419,11 @@ const HomePage = ({ navigateTo }) => {
       {/* Services Preview with CTA */}
       <section ref={servicesRef} className="py-16 px-4 glass-gold">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">THE SERVICES WE<br />PROVIDE</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">AVAILABLE SERVICES</h2>
           
           <p className="text-lg mb-12 max-w-3xl mx-auto text-white">
-            CREATING VISUALLY APPEALING AND FUNCTIONAL WEBSITES TAILORED TO THE CLIENT'S NEEDS AND GOALS, 
-            PROVIDING A CONSISTENT USER EXPERIENCE ACROSS PLATFORMS.
+            CREATING VISUALLY APPEALING AND FUNCTIONAL WEBSITES, DESIGNS, AND DIGITAL MEDIA TAILORED TO THE CLIENT'S NEEDS AND GOALS, 
+            PROVIDING A CONSISTENT USER EXPERIENCE ACROSS PLATFORMS AND PRODUCTS.
           </p>
           
           <div className="text-center">
