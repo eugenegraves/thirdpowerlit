@@ -7,6 +7,7 @@ import * as Animations from '../utils/animations';
 import trackAppImage from '../assets/Track-App-Screenshot.png';
 import dataVisualizationImage from '../assets/data-visualization-cover.png';
 import albumCoverImage from '../assets/Sitting-HeadDown-Halo-AlbumCover-Edit.jpg';
+import heroImage from '../assets/hero-image.jpg';
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger, TextPlugin);
 
@@ -294,7 +295,7 @@ const HomePage = ({ navigateTo }) => {
             <div className="w-full md:w-1/2">
               <div ref={heroImageRef} className="glass-gold rounded-lg overflow-hidden">
                 <img 
-                  src="/hero-image.jpg"
+                  src={heroImage}
                   alt="Creative Professional" 
                   className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 />

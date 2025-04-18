@@ -1,4 +1,5 @@
 import React from 'react';
+import heroImage from '../assets/hero-image.jpg'; // Import the hero image
 
 const AboutPage = ({ navigateTo }) => {
   return (
@@ -21,7 +22,7 @@ const AboutPage = ({ navigateTo }) => {
             <div className="w-full md:w-1/2">
               <div className="glass rounded-lg overflow-hidden">
                 <img 
-                  src="/hero-image.jpg"
+                  src={heroImage}
                   alt="Designer Portrait" 
                   className="w-full h-auto grayscale hover:grayscale-0 transition-all duration-500"
                 />
