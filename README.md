@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Third Power Lit
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is the official website for Third Power Lit, offering creative services including web development, UI/UX design, photography, and photo editing.
 
 ## Available Scripts
 
@@ -24,20 +24,58 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 Builds the app for production to the `build` folder.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Deployment with Vercel
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+This project is set up for continuous deployment to Vercel using GitHub Actions.
 
-### `npm run eject`
+### Setting Up Vercel Deployment
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+1. **Create a Vercel Account and Project**
+   - Sign up at [vercel.com](https://vercel.com)
+   - Create a new project and link it to your GitHub repository
+   - Complete the initial deployment through the Vercel dashboard
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+2. **Get Vercel Tokens and IDs**
+   - Go to your Vercel account settings
+   - Generate a new token in the "Tokens" tab
+   - Note down your Vercel Organization ID and Project ID from your project settings
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. **Configure GitHub Secrets**
+   - Go to your GitHub repository
+   - Navigate to Settings > Secrets > Actions
+   - Add the following secrets:
+     - `VERCEL_TOKEN`: Your Vercel token
+     - `VERCEL_ORG_ID`: Your Vercel organization ID
+     - `VERCEL_PROJECT_ID`: Your Vercel project ID
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+4. **Deploy**
+   - The GitHub Actions workflow will automatically deploy your project to Vercel whenever you push to the main branch
+   - You can also trigger manual deployments from the GitHub Actions tab
+
+## CI/CD Pipeline
+
+The CI/CD pipeline consists of:
+
+1. **Continuous Integration**
+   - Code is automatically tested on every push
+   - Dependencies are installed and the project is built
+
+2. **Continuous Deployment**
+   - Successful builds on the main branch are automatically deployed to Vercel
+   - Preview deployments are created for pull requests
+
+The workflow is defined in `.github/workflows/vercel-deploy.yml`.
+
+## Project Structure
+
+- `/src`: Source code
+  - `/components`: React components
+  - `/pages`: Page components
+  - `/assets`: Images and static assets
+  - `/utils`: Utility functions
+- `/public`: Static files
+
+This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Learn More
 
