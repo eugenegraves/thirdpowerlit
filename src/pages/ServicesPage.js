@@ -409,7 +409,7 @@ const ServicesPage = ({ navigateTo }) => {
       {/* Process Section */}
       <section ref={processRef} className="py-16 px-4 bg-gold-gradient text-primary">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12">OUR PROCESS</h2>
+          <h2 className="text-4xl md:text-5xl font-bold mb-12">THE PROCESS</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div className="relative glass rounded-lg p-6">
