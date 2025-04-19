@@ -5,6 +5,10 @@ import * as Animations from '../utils/animations';
 import cameraImage from '../assets/panasonic-lumix-fz300-01.jpg.webp';
 import webDevImage from '../assets/What-is-website-development.jpg';
 import uiUXImage from '../assets/c00bce58c817ec3a16945711111641d37320ae67-2240x1260.webp';
+import trackAppScreenshot from '../assets/Track-App-Screenshot.png';
+import dataVisualizationImage from '../assets/data-visualization-cover.png';
+import albumCoverImage from '../assets/Sitting-HeadDown-Halo-AlbumCover-Edit.jpg';
+import linguaFluxImage from '../assets/LingaFlux-Home.png';
 
 // Register GSAP plugins
 gsap.registerPlugin(ScrollTrigger);
@@ -511,28 +515,28 @@ const ServicesPage = ({ navigateTo }) => {
               <div className="grid grid-cols-2 gap-4">
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" 
+                    src={trackAppScreenshot}
                     alt="Professional Web Development Portfolio - Custom Website Design" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1547119957-637f8679db1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" 
+                    src={dataVisualizationImage}
                     alt="Professional Photography Services - Commercial Photography Portfolio" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" 
+                    src={albumCoverImage} 
                     alt="UI/UX Design Services - User Interface Development Portfolio" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
-                    src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
+                    src={linguaFluxImage}
                     alt="Photo Editing and Retouching Services - Professional Digital Editing" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />

@@ -89,7 +89,7 @@ const categories = [
   'UI/UX Design'
 ];
 
-const PortfolioPage = () => {
+const PortfolioPage = ({ navigateTo }) => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [activeProject, setActiveProject] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -496,7 +496,10 @@ const PortfolioPage = () => {
           <p className="text-lg max-w-2xl mx-auto mb-10 text-gray-300">
             Let's collaborate to create something exceptional that meets your goals and exceeds your expectations.
           </p>
-          <button className="bg-gold-gradient text-primary px-8 py-3 inline-flex items-center font-bold hover:opacity-90 transition-opacity duration-300 rounded-md">
+          <button 
+            onClick={() => navigateTo('contact')}
+            className="bg-gold-gradient text-primary px-8 py-3 inline-flex items-center font-bold hover:opacity-90 transition-opacity duration-300 rounded-md"
+          >
             Contact Me
             <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
