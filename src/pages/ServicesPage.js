@@ -134,7 +134,7 @@ const ServiceCard = ({ number, title, description, image, isActive = false }) =>
         <div className="w-full md:w-1/4">
           <img 
             src={image} 
-            alt={title} 
+            alt={`${title} - Professional ${title} Services by ThirdPowerLit`} 
             className="w-full h-64 md:h-full object-cover hover:opacity-90 transition-opacity duration-300"
           />
         </div>
@@ -512,28 +512,28 @@ const ServicesPage = ({ navigateTo }) => {
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1558655146-d09347e92766?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" 
-                    alt="Portfolio Preview 1" 
+                    alt="Professional Web Development Portfolio - Custom Website Design" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1547119957-637f8679db1e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" 
-                    alt="Portfolio Preview 2" 
+                    alt="Professional Photography Services - Commercial Photography Portfolio" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80" 
-                    alt="Portfolio Preview 3" 
+                    alt="UI/UX Design Services - User Interface Development Portfolio" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>
                 <div className="glass rounded-lg overflow-hidden">
                   <img 
                     src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" 
-                    alt="Portfolio Preview 4" 
+                    alt="Photo Editing and Retouching Services - Professional Digital Editing" 
                     className="w-full h-40 object-cover hover:opacity-80 transition-opacity duration-300"
                   />
                 </div>

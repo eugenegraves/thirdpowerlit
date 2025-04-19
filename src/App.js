@@ -22,6 +22,34 @@ function App() {
   const appRef = useRef(null);
   const pageRef = useRef(null);
 
+  // Update document title based on current page for SEO
+  useEffect(() => {
+    const siteName = "ThirdPowerLit";
+    let pageTitle = "";
+    
+    switch(currentPage) {
+      case 'home':
+        pageTitle = `${siteName} | Professional Web Development & Digital Services`;
+        break;
+      case 'services':
+        pageTitle = `Services | Web Development, Photography & Digital Services | ${siteName}`;
+        break;
+      case 'portfolio':
+        pageTitle = `Portfolio | Custom Websites & Professional Photography | ${siteName}`;
+        break;
+      case 'about':
+        pageTitle = `About | Professional Web Developer & Photographer | ${siteName}`;
+        break;
+      case 'contact':
+        pageTitle = `Contact | Get in Touch for Digital Services | ${siteName}`;
+        break;
+      default:
+        pageTitle = `${siteName} | Professional Web Development & Digital Services`;
+    }
+    
+    document.title = pageTitle;
+  }, [currentPage]);
+
   // Initialize animations when the app loads
   useEffect(() => {
     // Apply a subtle animation to the footer

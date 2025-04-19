@@ -263,11 +263,11 @@ const HomePage = ({ navigateTo }) => {
             {/* Hero Text */}
             <div ref={heroTextRef} className="w-full md:w-1/2 mb-10 md:mb-0 text-left">
               <h1 className="text-5xl md:text-7xl font-bold mb-4 tracking-tighter">
-                DIGITAL ARTISTRY &<br />
-                <span className="text-gold">INNOVATION</span>
+                WEB DEVELOPMENT &<br />
+                <span className="text-gold">CREATIVE DESIGN</span>
               </h1>
               <p className="text-lg md:text-xl mb-8 text-gray-400">
-                MULTI-DISCIPLINARY ARTIST & CREATIVE PROFESSIONAL
+                PROFESSIONAL WEB DEVELOPMENT, PHOTOGRAPHY & DIGITAL SERVICES
               </p>
               
               <div className="mt-12">
@@ -296,7 +296,7 @@ const HomePage = ({ navigateTo }) => {
               <div ref={heroImageRef} className="glass-gold rounded-lg overflow-hidden">
                 <img 
                   src={heroImage}
-                  alt="Creative Professional" 
+                  alt="ThirdPowerLit Professional Web Developer and Photographer" 
                   className="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-500"
                 />
               </div>
@@ -322,9 +322,9 @@ const HomePage = ({ navigateTo }) => {
         <div className="container mx-auto">
           <div className="flex flex-col md:flex-row items-center justify-between">
             <div className="w-full md:w-1/2 mb-10 md:mb-0">
-              <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gold">ABOUT</h2>
+              <h2 className="text-4xl md:text-6xl font-bold mb-6 text-gold">ABOUT MY EXPERTISE</h2>
               <p className="text-lg mb-8 max-w-md text-gray-300">
-                PROFESSIONAL DESIGNER & DEVELOPER, KNOWN FOR CREATIVE PROWESS AND TECHNICAL EXPERTISE.
+                PROFESSIONAL WEB DEVELOPER & PHOTOGRAPHER, SPECIALIZING IN CUSTOM WEBSITES AND DIGITAL MEDIA.
               </p>
               <button 
                 ref={el => ctaButtonRefs.current[1] = el}
@@ -359,14 +359,14 @@ const HomePage = ({ navigateTo }) => {
       {/* Featured Project Preview */}
       <section ref={featuredSectionRef} className="py-16 px-4">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">FEATURED PROJECTS</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">FEATURED PROJECTS & PORTFOLIO</h2>
           
           <div ref={projectsRef} className="flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
             <div className="w-full md:w-1/3 group cursor-pointer" onClick={() => navigateTo('portfolio')}>
               <div className="overflow-hidden glass rounded-lg">
                 <img 
                   src={trackAppImage}
-                  alt="Track & Field Team Management System" 
+                  alt="Marlboro Track & Field Management System - Custom Web Application" 
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>
@@ -379,8 +379,8 @@ const HomePage = ({ navigateTo }) => {
             <div className="w-full md:w-1/3 group cursor-pointer" onClick={() => navigateTo('portfolio')}>
               <div className="overflow-hidden glass rounded-lg">
                 <img 
-                  src={dataVisualizationImage} 
-                  alt="Data Visualization Project" 
+                  src={dataVisualizationImage}
+                  alt="Interactive Data Visualization Dashboard - Web Development Project" 
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>
@@ -394,7 +394,7 @@ const HomePage = ({ navigateTo }) => {
               <div className="overflow-hidden glass rounded-lg">
                 <img 
                   src={albumCoverImage}
-                  alt="Photography Project" 
+                  alt="Professional Album Cover Photography and Design Services" 
                   className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-110 opacity-80 group-hover:opacity-100"
                 />
               </div>
@@ -420,11 +420,11 @@ const HomePage = ({ navigateTo }) => {
       {/* Services Preview with CTA */}
       <section ref={servicesRef} className="py-16 px-4 glass-gold">
         <div className="container mx-auto">
-          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">AVAILABLE SERVICES</h2>
+          <h2 className="text-4xl md:text-6xl font-bold mb-12 text-gold">PROFESSIONAL SERVICES</h2>
           
           <p className="text-lg mb-12 max-w-3xl mx-auto text-white">
-            CREATING VISUALLY APPEALING AND FUNCTIONAL WEBSITES, DESIGNS, AND DIGITAL MEDIA TAILORED TO THE CLIENT'S NEEDS AND GOALS, 
-            PROVIDING A CONSISTENT USER EXPERIENCE ACROSS PLATFORMS AND PRODUCTS.
+            OFFERING CUSTOM WEBSITE DEVELOPMENT, PROFESSIONAL PHOTOGRAPHY, AND EXPERT PHOTO EDITING SERVICES
+            TO HELP BUSINESSES ESTABLISH A STRONG ONLINE PRESENCE AND VISUAL IDENTITY.
           </p>
           
           <div className="text-center">
