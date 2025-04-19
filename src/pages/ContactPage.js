@@ -23,7 +23,7 @@ const ContactPage = () => {
             <div className="mb-10">
               <h3 className="text-2xl font-medium mb-3 text-gold">Email</h3>
               <a href="mailto:contact@thirdpowerlit.com" className="text-gray-300 hover:text-secondary transition-colors text-lg">
-                contact@thirdpowerlit.com
+                eugene.graves@thirdpowerlit.com
               </a>
             </div>
             
