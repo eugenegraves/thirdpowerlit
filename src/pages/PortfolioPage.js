@@ -420,14 +420,16 @@ const PortfolioPage = ({ navigateTo }) => {
                 </div>
               </div>
               <div className="text-center mb-8">
-                <a 
-                  href={activeProject.url || "#"} 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className={`inline-block glass-gold px-8 py-3 rounded-full text-white hover:bg-gradient-to-r hover:from-secondary hover:to-secondary/80 transition-all duration-300 ${!activeProject.url && 'opacity-75 cursor-not-allowed'}`}
-                >
-                  View Live Project
-                </a>
+                {activeProject.url && (
+                  <a 
+                    href={activeProject.url} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="inline-block glass-gold px-8 py-3 rounded-full text-white hover:bg-gradient-to-r hover:from-secondary hover:to-secondary/80 transition-all duration-300"
+                  >
+                    View Live Project
+                  </a>
+                )}
               </div>
               <div className="flex justify-between items-center pt-4 border-t border-gray-700">
                 <button 
