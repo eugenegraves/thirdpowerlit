@@ -340,7 +340,7 @@ const HomePage = ({ navigateTo }) => {
             
             <div ref={statBoxesRef} className="w-full md:w-1/2 grid grid-cols-3 gap-6">
               <div className="text-center py-8 glass rounded-lg">
-                <h3 className="text-3xl font-bold text-gold">10</h3>
+                <h3 className="text-3xl font-bold text-gold">4</h3>
                 <p className="text-sm mt-2 text-gray-300">SUCCESS PROJECTS</p>
               </div>
               <div className="text-center py-8 glass rounded-lg">
