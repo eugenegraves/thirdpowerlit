@@ -127,6 +127,21 @@ const PortfolioPage = () => {
   // Project data with updated image paths to use existing assets
   const projects = [
     {
+      id: 7,
+      title: 'RAG AI Chat',
+      category: 'webdesign',
+      tags: ['React', 'OpenAI', 'Vector Database'],
+      image: '/assets/rag-chat.png',
+      images: [
+        '/assets/rag-chat.png'
+      ],
+      description: 'An interactive AI chat application leveraging Retrieval Augmented Generation (RAG) technology. Users can engage with the bot to learn about how it works, with the system pulling relevant information from its knowledge base to deliver accurate, context-aware responses.',
+      longDescription: 'An interactive AI chat application leveraging Retrieval Augmented Generation (RAG) technology. Users can engage with the bot to learn about how it works, with the system pulling relevant information from its knowledge base to deliver accurate, context-aware responses. The application features a clean, intuitive interface with real-time messaging, typing indicators, and message history. Built with React and integrated with OpenAI\'s API, the system uses vector embeddings to efficiently retrieve relevant information from its database, ensuring responses are both accurate and contextually appropriate. The RAG architecture allows the AI to ground its responses in verified data sources, reducing hallucinations and providing citation links for transparency.',
+      client: 'Personal Research Project',
+      date: 'May 2025',
+      website: ''
+    },
+    {
       id: 5,
       title: 'Queen of Lenses Photography',
       category: 'webdesign',
