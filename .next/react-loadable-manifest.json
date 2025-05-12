@@ -1,0 +1,80 @@
+{
+  "components/Navbar.js -> ../utils/animations": {
+    "id": "components/Navbar.js -> ../utils/animations",
+    "files": [
+      "static/chunks/_pages-dir-browser_src_utils_animations_js.js"
+    ]
+  },
+  "components/Navbar.js -> gsap": {
+    "id": "components/Navbar.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/AboutPage.js -> gsap": {
+    "id": "pages/AboutPage.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/AboutPage.js -> gsap/ScrollTrigger": {
+    "id": "pages/AboutPage.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
+  "pages/PortfolioPage.js -> gsap": {
+    "id": "pages/PortfolioPage.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/PortfolioPage.js -> gsap/ScrollTrigger": {
+    "id": "pages/PortfolioPage.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
+  "pages/about.js -> gsap": {
+    "id": "pages/about.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/about.js -> gsap/ScrollTrigger": {
+    "id": "pages/about.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
+  "pages/portfolio.js -> gsap": {
+    "id": "pages/portfolio.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/portfolio.js -> gsap/ScrollTrigger": {
+    "id": "pages/portfolio.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
+  "utils/animations.js -> gsap": {
+    "id": "utils/animations.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "utils/animations.js -> gsap/ScrollTrigger": {
+    "id": "utils/animations.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
+  "utils/animations.js -> gsap/TextPlugin": {
+    "id": "utils/animations.js -> gsap/TextPlugin",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_TextPlugin_js.js"
+    ]
+  }
+}

@@ -1,187 +1,210 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { gsap } from 'gsap';
-import * as Animations from '../utils/animations';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-const Navbar = ({ currentPage, navigateTo }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const router = useRouter();
   const logoRef = useRef(null);
   const navRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const desktopMenuRef = useRef(null);
+  const progressBarRef = useRef(null);
 
-  // Handle navbar scroll effect
+  // Effect to handle scroll behavior
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
     const handleScroll = () => {
       if (window.scrollY > 50) {
-        setScrolled(true);
+        setIsScrolled(true);
       } else {
-        setScrolled(false);
+        setIsScrolled(false);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Initial animations when component mounts
   useEffect(() => {
-    // Logo animation
-    if (logoRef.current) {
-      Animations.logoReveal(logoRef.current);
-    }
-
-    // Navbar items animation
-    if (desktopMenuRef.current) {
-      const navItems = desktopMenuRef.current.querySelectorAll('button');
-      gsap.fromTo(
-        navItems,
-        { y: -20, opacity: 0 },
-        { 
-          y: 0, 
-          opacity: 1, 
-          stagger: 0.1, 
-          duration: 0.6, 
-          ease: "power3.out",
-          delay: 0.3
+    if (typeof window === 'undefined') return;
+    
+    const initAnimations = async () => {
+      try {
+        // Dynamically import GSAP
+        const gsapModule = await import('gsap');
+        const gsap = gsapModule.default || gsapModule.gsap;
+        
+        // Import animations
+        const animations = await import('../utils/animations');
+        
+        // Logo animation
+        if (logoRef.current) {
+          animations.logoReveal(logoRef.current);
         }
-      );
-    }
+
+        // Navbar items animation
+        if (desktopMenuRef.current) {
+          const navItems = desktopMenuRef.current.querySelectorAll('a');
+          gsap.fromTo(
+            navItems,
+            { y: -20, opacity: 0 },
+            { 
+              y: 0, 
+              opacity: 1, 
+              stagger: 0.1, 
+              duration: 0.6, 
+              ease: "power3.out",
+              delay: 0.3
+            }
+          );
+        }
+      } catch (error) {
+        console.error("Error loading GSAP:", error);
+      }
+    };
+    
+    initAnimations();
   }, []);
 
-  // Toggle mobile menu with animation
-  const toggleMenu = () => {
-    if (!menuOpen) {
-      setMenuOpen(true);
-      // Will animate the menu in the useEffect below
-    } else {
-      // Animate menu out before setting state
-      if (mobileMenuRef.current) {
-        gsap.to(mobileMenuRef.current, {
-          height: 0,
-          opacity: 0,
-          duration: 0.3,
-          ease: "power2.inOut",
-          onComplete: () => setMenuOpen(false)
-        });
-      } else {
-        setMenuOpen(false);
-      }
-    }
-  };
-
-  // Animate mobile menu when it opens/closes
+  // Add scroll progress animation
   useEffect(() => {
-    if (menuOpen && mobileMenuRef.current) {
-      // Get the height of the content
-      const height = mobileMenuRef.current.scrollHeight;
-      
-      // Set initial state
-      gsap.set(mobileMenuRef.current, { 
-        height: 0,
-        opacity: 0
-      });
-      
-      // Animate to open
-      gsap.to(mobileMenuRef.current, {
-        height: height,
-        opacity: 1,
-        duration: 0.5,
-        ease: "power3.out"
-      });
-      
-      // Animate the menu items
-      const menuItems = mobileMenuRef.current.querySelectorAll('button');
-      gsap.fromTo(
-        menuItems,
-        { x: -20, opacity: 0 },
-        { 
-          x: 0, 
-          opacity: 1, 
-          stagger: 0.1, 
-          duration: 0.4, 
-          ease: "power2.out",
-          delay: 0.2
+    if (typeof window === 'undefined') return;
+
+    const initScrollProgress = async () => {
+      try {
+        // Dynamically import GSAP
+        const gsapModule = await import('gsap');
+        const gsap = gsapModule.default || gsapModule.gsap;
+        
+        // Setup the scroll progress animation
+        const progressBar = document.getElementById('scrollProgress');
+        
+        if (progressBar) {
+          const handleScrollProgress = () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.offsetHeight - window.innerHeight;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            gsap.to(progressBar, { 
+              width: `${scrollPercent}%`, 
+              duration: 0.1,
+              ease: "none"
+            });
+          };
+          
+          window.addEventListener('scroll', handleScrollProgress);
+          return () => window.removeEventListener('scroll', handleScrollProgress);
         }
-      );
-    }
-  }, [menuOpen]);
+      } catch (error) {
+        console.error("Error setting up scroll progress:", error);
+      }
+    };
+    
+    initScrollProgress();
+  }, []);
+
+  // Mobile menu animation
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    const animateMobileMenu = async () => {
+      try {
+        const gsapModule = await import('gsap');
+        const gsap = gsapModule.default || gsapModule.gsap;
+        
+        if (mobileMenuRef.current) {
+          if (isOpen) {
+            gsap.to(mobileMenuRef.current, { 
+              height: 'auto', 
+              opacity: 1, 
+              duration: 0.3, 
+              ease: 'power2.out' 
+            });
+          } else {
+            gsap.to(mobileMenuRef.current, { 
+              height: 0, 
+              opacity: 0, 
+              duration: 0.3, 
+              ease: 'power2.in' 
+            });
+          }
+        }
+      } catch (error) {
+        console.error("Error animating mobile menu:", error);
+      }
+    };
+    
+    animateMobileMenu();
+  }, [isOpen]);
+
+  // Check if a path is active
+  const isActive = (path) => {
+    return router.pathname === path;
+  };
 
   return (
     <nav 
       ref={navRef}
-      className={`glass sticky top-0 z-50 transition-all duration-300 ${scrolled ? 'py-2 shadow-lg' : 'py-3'}`}
+      className={`glass sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'py-2 shadow-lg' : 'py-3'}`}
     >
       <div className="container mx-auto px-4 flex justify-between items-center">
         {/* Logo */}
-        <div 
-          ref={logoRef}
-          className="font-bold text-2xl cursor-pointer text-gold" 
-          onClick={() => navigateTo('home')}
-          style={{ WebkitFontSmoothing: 'subpixel-antialiased' }}
-        >
-          Lit³
-        </div>
+        <Link href="/" className="font-bold text-2xl cursor-pointer text-gold" ref={logoRef}>
+          <span style={{ 
+            backgroundImage: 'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            display: 'inline-block'
+          }}>Lit³</span>
+        </Link>
 
         {/* Desktop Navigation */}
         <div ref={desktopMenuRef} className="hidden md:flex space-x-8">
-          <button 
-            className={`font-medium relative ${currentPage === 'home' ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}
-            onClick={() => navigateTo('home')}
-          >
+          <Link href="/" className={`font-medium relative ${isActive('/') ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}>
             Home
-            {currentPage === 'home' && (
+            {isActive('/') && (
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary shine"></span>
             )}
-          </button>
-          <button 
-            className={`font-medium relative ${currentPage === 'services' ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}
-            onClick={() => navigateTo('services')}
-          >
+          </Link>
+          <Link href="/services" className={`font-medium relative ${isActive('/services') ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}>
             Services
-            {currentPage === 'services' && (
+            {isActive('/services') && (
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary shine"></span>
             )}
-          </button>
-          <button 
-            className={`font-medium relative ${currentPage === 'portfolio' ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}
-            onClick={() => navigateTo('portfolio')}
-          >
+          </Link>
+          <Link href="/portfolio" className={`font-medium relative ${isActive('/portfolio') ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}>
             Portfolio
-            {currentPage === 'portfolio' && (
+            {isActive('/portfolio') && (
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary shine"></span>
             )}
-          </button>
-          <button 
-            className={`font-medium relative ${currentPage === 'about' ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}
-            onClick={() => navigateTo('about')}
-          >
+          </Link>
+          <Link href="/about" className={`font-medium relative ${isActive('/about') ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}>
             About
-            {currentPage === 'about' && (
+            {isActive('/about') && (
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary shine"></span>
             )}
-          </button>
-          <button 
-            className={`font-medium relative ${currentPage === 'contact' ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}
-            onClick={() => navigateTo('contact')}
-          >
+          </Link>
+          <Link href="/contact" className={`font-medium relative ${isActive('/contact') ? 'nav-active' : 'hover:text-secondary-light transition-colors'}`}>
             Contact
-            {currentPage === 'contact' && (
+            {isActive('/contact') && (
               <span className="absolute bottom-0 left-0 w-full h-0.5 bg-secondary shine"></span>
             )}
-          </button>
+          </Link>
         </div>
 
         {/* Mobile Menu Button */}
         <div className="md:hidden">
           <button 
-            onClick={toggleMenu}
+            onClick={() => setIsOpen(!isOpen)}
             className="focus:outline-none text-white overflow-hidden"
           >
             <div className="w-6 h-6 relative">
-              <span className={`absolute inset-0 ${menuOpen ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
+              <span className={`absolute inset-0 ${isOpen ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}>
                 <svg 
                   className="w-6 h-6" 
                   fill="none" 
@@ -197,7 +220,7 @@ const Navbar = ({ currentPage, navigateTo }) => {
                   />
                 </svg>
               </span>
-              <span className={`absolute inset-0 ${menuOpen ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
+              <span className={`absolute inset-0 ${isOpen ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}>
                 <svg 
                   className="w-6 h-6" 
                   fill="none" 
@@ -219,91 +242,61 @@ const Navbar = ({ currentPage, navigateTo }) => {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div 
-          ref={mobileMenuRef}
-          className="md:hidden glass-gold w-full py-2 px-4 absolute z-10 origin-top overflow-hidden"
-          style={{ height: 0, opacity: 0 }}
-        >
-          <div className="flex flex-col space-y-4">
-            <button 
-              className={`font-medium text-left py-2 ${currentPage === 'home' ? 'border-l-4 pl-2 border-secondary' : ''}`}
-              onClick={() => {
-                navigateTo('home');
-                toggleMenu();
-              }}
-            >
-              Home
-            </button>
-            <button 
-              className={`font-medium text-left py-2 ${currentPage === 'services' ? 'border-l-4 pl-2 border-secondary' : ''}`}
-              onClick={() => {
-                navigateTo('services');
-                toggleMenu();
-              }}
-            >
-              Services
-            </button>
-            <button 
-              className={`font-medium text-left py-2 ${currentPage === 'portfolio' ? 'border-l-4 pl-2 border-secondary' : ''}`}
-              onClick={() => {
-                navigateTo('portfolio');
-                toggleMenu();
-              }}
-            >
-              Portfolio
-            </button>
-            <button 
-              className={`font-medium text-left py-2 ${currentPage === 'about' ? 'border-l-4 pl-2 border-secondary' : ''}`}
-              onClick={() => {
-                navigateTo('about');
-                toggleMenu();
-              }}
-            >
-              About
-            </button>
-            <button 
-              className={`font-medium text-left py-2 ${currentPage === 'contact' ? 'border-l-4 pl-2 border-secondary' : ''}`}
-              onClick={() => {
-                navigateTo('contact');
-                toggleMenu();
-              }}
-            >
-              Contact
-            </button>
-          </div>
+      <div 
+        ref={mobileMenuRef}
+        className={`md:hidden glass-gold w-full py-2 px-4 absolute z-10 origin-top overflow-hidden ${!isOpen ? 'hidden' : ''}`}
+        style={{ height: 0, opacity: 0 }}
+      >
+        <div className="flex flex-col space-y-4">
+          <Link 
+            href="/" 
+            className={`font-medium text-left py-2 ${isActive('/') ? 'border-l-4 pl-2 border-secondary' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Home
+          </Link>
+          <Link 
+            href="/services" 
+            className={`font-medium text-left py-2 ${isActive('/services') ? 'border-l-4 pl-2 border-secondary' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Services
+          </Link>
+          <Link 
+            href="/portfolio" 
+            className={`font-medium text-left py-2 ${isActive('/portfolio') ? 'border-l-4 pl-2 border-secondary' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Portfolio
+          </Link>
+          <Link 
+            href="/about" 
+            className={`font-medium text-left py-2 ${isActive('/about') ? 'border-l-4 pl-2 border-secondary' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            About
+          </Link>
+          <Link 
+            href="/contact" 
+            className={`font-medium text-left py-2 ${isActive('/contact') ? 'border-l-4 pl-2 border-secondary' : ''}`}
+            onClick={() => setIsOpen(false)}
+          >
+            Contact
+          </Link>
         </div>
-      )}
+      </div>
 
       {/* Progress bar for scrolling */}
       <div className="h-0.5 w-full bg-gray-800 absolute bottom-0 left-0">
         <div 
           className="h-full bg-gold-gradient"
           id="scrollProgress"
+          ref={progressBarRef}
           style={{ width: '0%' }}
         ></div>
       </div>
     </nav>
   );
 };
-
-// Add scroll progress animation
-window.addEventListener('load', () => {
-  const progressBar = document.getElementById('scrollProgress');
-  
-  if (progressBar) {
-    window.addEventListener('scroll', () => {
-      const scrollTop = window.scrollY;
-      const docHeight = document.body.offsetHeight - window.innerHeight;
-      const scrollPercent = (scrollTop / docHeight) * 100;
-      
-      gsap.to(progressBar, { 
-        width: `${scrollPercent}%`, 
-        duration: 0.1,
-        ease: "none"
-      });
-    });
-  }
-});
 
 export default Navbar; 

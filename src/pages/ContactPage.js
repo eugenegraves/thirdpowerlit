@@ -1,154 +1,398 @@
-import React from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import { ImageWrapper } from '../components/ImageWrapper';
+import { NextSeo } from 'next-seo';
 
 const ContactPage = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: '',
+    serviceType: 'photography'
+  });
+  
+  const [formStatus, setFormStatus] = useState({
+    submitting: false,
+    submitted: false,
+    success: false,
+    message: ''
+  });
+
+  const contactHeaderRef = useRef(null);
+  const contactFormRef = useRef(null);
+  const contactInfoRef = useRef(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setFormStatus({
+      submitting: true,
+      submitted: false,
+      success: false,
+      message: ''
+    });
+
+    // Simulate form submission
+    try {
+      // In a real implementation, you would send data to your API or form endpoint
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: true,
+        message: 'Thank you for your message! We will be in touch soon.'
+      });
+      
+      // Reset form after successful submission
+      setFormData({
+        name: '',
+        email: '',
+        subject: '',
+        message: '',
+        serviceType: 'photography'
+      });
+    } catch (error) {
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: false,
+        message: 'There was an error submitting your message. Please try again.'
+      });
+    }
+  };
+
+  useEffect(() => {
+    // Dynamically import GSAP only on client-side
+    const initGSAP = async () => {
+      if (typeof window === 'undefined') return;
+      
+      try {
+        const gsapModule = await import('gsap');
+        const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+        
+        const gsap = gsapModule.default;
+        gsap.registerPlugin(ScrollTrigger);
+        
+        // Animate header section
+        if (contactHeaderRef.current) {
+          gsap.fromTo(
+            '.contact-header h1',
+            { opacity: 0, y: 50 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 1,
+              ease: 'power3.out'
+            }
+          );
+          
+          gsap.fromTo(
+            '.contact-header p',
+            { opacity: 0, y: 30 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 1,
+              delay: 0.3,
+              ease: 'power3.out'
+            }
+          );
+        }
+        
+        // Animate form section
+        if (contactFormRef.current) {
+          gsap.fromTo(
+            '.contact-form-wrapper',
+            { opacity: 0, x: -50 },
+            { 
+              opacity: 1, 
+              x: 0, 
+              duration: 1,
+              scrollTrigger: {
+                trigger: contactFormRef.current,
+                start: 'top 80%',
+              },
+              ease: 'power3.out'
+            }
+          );
+          
+          gsap.fromTo(
+            '.contact-form-wrapper .form-group',
+            { opacity: 0, y: 20 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.8,
+              stagger: 0.1,
+              delay: 0.3,
+              scrollTrigger: {
+                trigger: contactFormRef.current,
+                start: 'top 80%',
+              },
+              ease: 'power2.out'
+            }
+          );
+        }
+        
+        // Animate contact info
+        if (contactInfoRef.current) {
+          gsap.fromTo(
+            '.contact-info',
+            { opacity: 0, x: 50 },
+            { 
+              opacity: 1, 
+              x: 0, 
+              duration: 1,
+              scrollTrigger: {
+                trigger: contactInfoRef.current,
+                start: 'top 80%',
+              },
+              ease: 'power3.out'
+            }
+          );
+          
+          gsap.fromTo(
+            '.contact-info-item',
+            { opacity: 0, y: 20 },
+            { 
+              opacity: 1, 
+              y: 0, 
+              duration: 0.8,
+              stagger: 0.2,
+              delay: 0.3,
+              scrollTrigger: {
+                trigger: contactInfoRef.current,
+                start: 'top 80%',
+              },
+              ease: 'power2.out'
+            }
+          );
+        }
+      } catch (error) {
+        console.error("Failed to initialize GSAP:", error);
+      }
+    };
+
+    // Initialize GSAP
+    initGSAP();
+
+    // Cleanup function
+    return () => {
+      if (typeof window !== 'undefined') {
+        const initScrollTriggerCleanup = async () => {
+          try {
+            const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+            ScrollTrigger.getAll().forEach(t => t.kill());
+          } catch (error) {
+            console.error("Failed to cleanup ScrollTrigger:", error);
+          }
+        };
+        
+        initScrollTriggerCleanup();
+      }
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen">
-      {/* Contact Hero */}
-      <section className="py-16 px-4 bg-dark-lighter">
-        <div className="container mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 text-gold">GET IN TOUCH</h1>
-          <p className="text-lg md:text-xl max-w-3xl text-gray-300">
-            HAVE A PROJECT IN MIND OR NEED CREATIVE SERVICES? LET'S DISCUSS HOW I CAN HELP 
-            BRING YOUR VISION TO LIFE WITH PROFESSIONAL EXPERTISE AND ARTISTIC FLAIR.
-          </p>
+    <>
+      <NextSeo
+        title="Contact - Third Power Lit"
+        description="Get in touch with ThirdPowerLit for photography services, web design, or any questions you might have. Let's create something amazing together."
+        canonical="https://thirdpowerlit.com/contact"
+        openGraph={{
+          url: 'https://thirdpowerlit.com/contact',
+          title: 'Contact - Third Power Lit',
+          description: 'Get in touch with ThirdPowerLit for photography services, web design, or any questions.',
+          images: [
+            {
+              url: '/images/og-contact.jpg',
+              width: 1200,
+              height: 630,
+              alt: 'Contact Third Power Lit',
+            },
+          ],
+        }}
+      />
+      
+      {/* Header Section */}
+      <section className="py-20" ref={contactHeaderRef}>
+        <div className="container mx-auto px-4">
+          <div className="contact-header text-center max-w-3xl mx-auto">
+            <h1 className="text-5xl font-bold mb-8 text-gold">Get In Touch</h1>
+            <p className="text-xl text-gray-300">
+              Have a question, project idea, or just want to say hello? I'd love to hear from you. Fill out the form below or use the contact details to get in touch.
+            </p>
+          </div>
         </div>
       </section>
       
-      {/* Contact Information */}
-      <section className="py-16 px-4">
-        <div className="container mx-auto flex flex-col md:flex-row items-center justify-center gap-12">
-          <div className="glass-gold p-8 rounded-lg max-w-lg w-full aspect-square flex flex-col justify-between">
-            <h2 className="text-4xl font-bold mb-8 text-gold text-center">CONTACT INFO</h2>
-            
-            <div className="mb-10">
-              <h3 className="text-2xl font-medium mb-3 text-gold">Email</h3>
-              <a href="mailto:contact@thirdpowerlit.com" className="text-gray-300 hover:text-secondary transition-colors text-lg">
-                eugene.graves@thirdpowerlit.com
-              </a>
+      {/* Contact Form and Info */}
+      <section className="py-10 pb-20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col lg:flex-row gap-12">
+            {/* Contact Form */}
+            <div className="w-full lg:w-1/2">
+              <div className="glass p-8 rounded-lg">
+                <h3 className="text-2xl font-bold text-gold mb-6">Send Us a Message</h3>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div>
+                    <label htmlFor="name" className="block text-gray-300 mb-2">Your Name</label>
+                    <input
+                      type="text"
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="email" className="block text-gray-300 mb-2">Email Address</label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
+                      required
+                    />
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="service" className="block text-gray-300 mb-2">Service You're Interested In</label>
+                    <select
+                      id="service"
+                      name="service"
+                      value={formData.service}
+                      onChange={handleChange}
+                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
+                    >
+                      <option value="">Select a Service</option>
+                      <option value="web-development">Web Development</option>
+                      <option value="photography">Photography</option>
+                      <option value="photo-editing">Photo Editing</option>
+                      <option value="other">Other</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="message" className="block text-gray-300 mb-2">Your Message</label>
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      rows="5"
+                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
+                      required
+                    ></textarea>
+                  </div>
+                  
+                  <div>
+                    <button
+                      type="submit"
+                      className="w-full bg-transparent border-2 border-gold text-gold py-3 px-6 rounded-md hover:bg-gradient-to-r hover:from-gold/80 hover:to-amber-500/80 hover:text-white transition-all duration-300"
+                      disabled={formStatus.submitting}
+                    >
+                      {formStatus.submitting ? 'Sending...' : 'Send Message'}
+                    </button>
+                  </div>
+
+                  {formStatus.submitted && (
+                    <div className={`mt-4 p-4 rounded-md ${formStatus.success ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}>
+                      {formStatus.message}
+                    </div>
+                  )}
+                </form>
+              </div>
             </div>
             
-            <div className="mb-10">
-              <h3 className="text-2xl font-medium mb-3 text-gold">Location</h3>
-              <p className="text-gray-300 text-lg">New Jersey</p>
-            </div>
-            
-            <div>
-              <h3 className="text-2xl font-medium mb-4 text-gold text-center">Social Media</h3>
-              <div className="flex justify-center space-x-8">
-                <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
-                  <svg className="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M22.68 0H1.32C0.6 0 0 0.6 0 1.32v21.36C0 23.4 0.6 24 1.32 24h11.5v-9.3H9.69v-3.62h3.13V8.41c0-3.1 1.9-4.79 4.66-4.79c1.32 0 2.46 0.1 2.8 0.15v3.24h-1.92c-1.5 0-1.8 0.71-1.8 1.76v2.31h3.59l-0.47 3.62h-3.12V24h6.12c0.73 0 1.32-0.6 1.32-1.32V1.32C24 0.6 23.4 0 22.68 0z"/>
-                  </svg>
+            {/* Contact Info */}
+            <div className="w-full lg:w-1/2 space-y-8">
+              <div className="glass p-8 rounded-lg">
+                <h3 className="text-2xl font-bold text-gold mb-6">Contact Information</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start">
+                    <div className="text-gold mr-4">
+                      <i className="fas fa-map-marker-alt text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium">Our Location</h4>
+                      <p className="text-gray-300">Marlboro, New Jersey</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <div className="text-gold mr-4">
+                      <i className="fas fa-envelope text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium">Email Us</h4>
+                      <a href="mailto:eugene.graves@thirdpowerlit.com" className="text-gray-300 hover:text-gold transition-colors">eugene.graves@thirdpowerlit.com</a>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start">
+                    <div className="text-gold mr-4">
+                      <i className="fas fa-clock text-xl"></i>
+                    </div>
+                    <div>
+                      <h4 className="text-white font-medium">Business Hours</h4>
+                      <p className="text-gray-300">Monday - Friday: 9AM - 6PM<br />Weekends: By appointment</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="glass overflow-hidden rounded-lg">
+                <div className="relative aspect-[16/9] w-full">
+                  <div className="w-full h-full flex items-center justify-center py-12 px-6">
+                    <div className="text-center">
+                      <span className="text-8xl md:text-9xl font-bold" 
+                        style={{ 
+                          backgroundImage: 'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
+                          WebkitBackgroundClip: 'text',
+                          WebkitTextFillColor: 'transparent',
+                          backgroundClip: 'text',
+                          display: 'inline-block'
+                        }}>
+                        Lit³
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div className="flex space-x-4 justify-center">
+                <a href="https://twitter.com/thirdpowerlit" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-white transition-colors">
+                  <i className="fab fa-twitter text-2xl"></i>
                 </a>
-                <a href="https://www.instagram.com/thirdpowerlit/" className="text-gray-300 hover:text-secondary transition-colors">
-                  <svg className="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                  </svg>
+                <a href="https://instagram.com/thirdpowerlit" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-white transition-colors">
+                  <i className="fab fa-instagram text-2xl"></i>
                 </a>
-                <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
-                  <svg className="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M23.953 4.57a10 10 0 01-2.825.775 4.958 4.958 0 002.163-2.723c-.951.555-2.005.959-3.127 1.184a4.92 4.92 0 00-8.384 4.482C7.69 8.095 4.067 6.13 1.64 3.162a4.822 4.822 0 00-.666 2.475c0 1.71.87 3.213 2.188 4.096a4.904 4.904 0 01-2.228-.616v.06a4.923 4.923 0 003.946 4.827 4.996 4.996 0 01-2.212.085a4.936 4.936 0 004.604 3.417 9.867 9.867 0 01-6.102 2.105c-.39 0-.779-.023-1.17-.067a13.995 13.995 0 007.557 2.209c9.053 0 13.998-7.496 13.998-13.985 0-.21 0-.42-.015-.63A9.935 9.935 0 0024 4.59z"/>
-                  </svg>
+                <a href="https://linkedin.com/company/thirdpowerlit" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-white transition-colors">
+                  <i className="fab fa-linkedin-in text-2xl"></i>
                 </a>
-                <a href="#" className="text-gray-300 hover:text-secondary transition-colors">
-                  <svg className="w-9 h-9" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-                  </svg>
+                <a href="https://facebook.com/thirdpowerlit" target="_blank" rel="noopener noreferrer" className="text-gold hover:text-white transition-colors">
+                  <i className="fab fa-facebook-f text-2xl"></i>
                 </a>
               </div>
             </div>
           </div>
-          
-          {/* Large Logo */}
-          <div className="glass p-8 rounded-lg flex items-center justify-center max-w-lg w-full aspect-square">
-            <div className="text-gold text-center">
-              <div className="flex items-start justify-center">
-                <span className="text-9xl font-bold">Lit</span>
-                <span className="text-5xl" style={{ marginTop: "-15px", marginLeft: "5px", padding: "10px" }}>  3</span>
-              </div>
-              <div className="text-secondary-light mt-4 text-xl">THIRD POWER LIT</div>
-            </div>
-          </div>
         </div>
       </section>
-      
-      {/* FAQ Section */}
-      <section className="py-16 px-4 bg-dark-lighter">
-        <div className="container mx-auto">
-          <h2 className="text-4xl md:text-5xl font-bold mb-12 text-gold">FREQUENTLY ASKED QUESTIONS</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="glass p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gold">What services do you offer?</h3>
-              <p className="text-gray-300">
-                We offer a comprehensive range of creative services including website design and development, 
-                UI/UX design, professional photography, and advanced photo editing/retouching. Our services 
-                can be bundled or provided individually to create a customized solution for your needs.
-              </p>
-            </div>
-            
-            <div className="glass p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gold">What types of photography do you provide?</h3>
-              <p className="text-gray-300">
-                Our photography services include product photography, portraits, event coverage, and 
-                commercial shoots. We specialize in creating high-quality visuals that tell your brand's story,
-                using professional equipment and techniques to ensure exceptional results for any purpose.
-              </p>
-            </div>
-            
-            <div className="glass p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gold">What photo editing services are available?</h3>
-              <p className="text-gray-300">
-                We offer a full spectrum of editing services from basic color correction and retouching 
-                to advanced compositing and creative manipulation. Our editing transforms ordinary photos 
-                into compelling visuals that enhance your marketing materials, social media, or website.
-              </p>
-            </div>
-            
-            <div className="glass p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gold">How does your web development process work?</h3>
-              <p className="text-gray-300">
-                Our web development process includes discovery, planning, design, development, testing, 
-                and launch phases. We focus on creating responsive, modern websites with intuitive interfaces
-                and optimal performance. We also offer ongoing maintenance and support after launch.
-              </p>
-            </div>
-            
-            <div className="glass p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gold">Do you offer combined service packages?</h3>
-              <p className="text-gray-300">
-                Yes, we specialize in creating integrated solutions that combine web development, 
-                photography, and editing services. These packages provide a cohesive look and feel 
-                across all your digital assets, ensuring brand consistency and professional quality.
-              </p>
-            </div>
-            
-            <div className="glass p-6 rounded-lg">
-              <h3 className="text-xl font-bold mb-4 text-gold">What is your pricing structure?</h3>
-              <p className="text-gray-300">
-                Our pricing is project-based and depends on the scope and specific requirements. 
-                Photography services are typically priced by session or day rate, while web development 
-                is quoted based on complexity and features. Contact us for a personalized quote.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Map Section */}
-      <section className="h-96 relative">
-        <div className="absolute inset-0 z-10 flex items-center justify-center">
-          <div className="glass-gold p-8 rounded-lg text-center">
-            <h3 className="text-2xl font-bold mb-2 text-gold">OFFICE LOCATION</h3>
-            <p className="text-gray-300">Coming Soon!</p>
-          </div>
-        </div>
-        <div className="h-full w-full">
-          {/* This would be replaced with an actual map component or embed */}
-          <div className="w-full h-full bg-gray-800 opacity-60"></div>
-        </div>
-      </section>
-    </div>
+    </>
   );
 };
 

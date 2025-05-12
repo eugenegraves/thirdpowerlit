@@ -1,0 +1,214 @@
+/* App.css - Custom styles for the application */
+
+:root {
+  /* Colors */
+  --primary: #121212;
+  --primary-lighter: #1e1e1e;
+  --primary-darker: #0a0a0a;
+  --secondary: #d4af37;
+  --secondary-light: #ffd700;
+  --secondary-dark: #b8860b;
+  --text-color: #ffffff;
+  --text-color-light: #e0e0e0;
+  --text-color-dark: #a0a0a0;
+  
+  /* Gradients */
+  --gold-gradient: linear-gradient(to right, #b8860b, #ffd700, #b8860b);
+  --gold-gradient-animated: linear-gradient(to right, #b8860b, #ffd700, #d4af37, #ffd700, #b8860b);
+  --glass-background: rgba(18, 18, 18, 0.75);
+  --glass-gold-background: rgba(212, 175, 55, 0.15);
+  --glass-gold-stable-background: rgba(212, 175, 55, 0.08);
+}
+
+/* Base styles */
+body {
+  background-color: var(--primary);
+  color: var(--text-color);
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  line-height: 1.5;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism effects */
+.glass {
+  background: var(--glass-background);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+}
+
+.glass-gold {
+  background: var(--glass-gold-background);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(212, 175, 55, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(212, 175, 55, 0.2);
+}
+
+/* Stable version of glass-gold without animations or transitions */
+.glass-gold-stable {
+  background: var(--glass-gold-stable-background);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(212, 175, 55, 0.15);
+  box-shadow: 0 4px 16px 0 rgba(212, 175, 55, 0.1);
+}
+
+/* Gold text effect */
+.text-gold {
+  color: var(--secondary);
+  text-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+}
+
+/* Gold border effect */
+.border-gold {
+  border-color: var(--secondary);
+  box-shadow: 0 0 10px rgba(212, 175, 55, 0.3);
+}
+
+/* Animation for gold shine effect */
+.shine {
+  position: relative;
+  overflow: hidden;
+}
+
+.shine::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.3), transparent);
+  animation: shine 3s infinite;
+}
+
+@keyframes shine {
+  0% {
+    left: -100%;
+  }
+  20% {
+    left: 100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+/* Gold gradient background animation */
+.bg-gold-gradient {
+  background: var(--gold-gradient-animated);
+  background-size: 200% 100%;
+  animation: gradientMove 8s linear infinite;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 200% 0%;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--primary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--secondary-dark);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--secondary);
+}
+
+/* Animated background */
+.animated-bg {
+  position: relative;
+  overflow: hidden;
+}
+
+.animated-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 15% 50%, rgba(212, 175, 55, 0.05) 0%, transparent 50%),
+              radial-gradient(circle at 85% 30%, rgba(212, 175, 55, 0.05) 0%, transparent 50%);
+  z-index: -1;
+}
+
+/* Responsive layout */
+@media (max-width: 768px) {
+  .container {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  
+  /* Hide scrollbar on mobile */
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  
+  body {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+/* Nav active class */
+.nav-active {
+  color: var(--secondary);
+  font-weight: 500;
+}
+
+/* Scroll indicator */
+.scroll-indicator {
+  position: absolute;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30px;
+  height: 50px;
+  border: 2px solid var(--secondary);
+  border-radius: 15px;
+}
+
+.scroll-indicator::before {
+  content: '';
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  background: var(--secondary);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  animation: scrollDown 2s infinite;
+}
+
+@keyframes scrollDown {
+  0% {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-50%) translateY(20px);
+  }
+}
+
+/* Elements that need floating animation */
+.animate-float {
+  transform: translateZ(0); /* Force hardware acceleration */
+} 
