@@ -11,52 +11,22 @@
       "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
     ]
   },
-  "pages/AboutPage.js -> gsap": {
-    "id": "pages/AboutPage.js -> gsap",
+  "pages/HomePage.js -> gsap": {
+    "id": "pages/HomePage.js -> gsap",
     "files": [
       "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
     ]
   },
-  "pages/AboutPage.js -> gsap/ScrollTrigger": {
-    "id": "pages/AboutPage.js -> gsap/ScrollTrigger",
+  "pages/HomePage.js -> gsap/ScrollTrigger": {
+    "id": "pages/HomePage.js -> gsap/ScrollTrigger",
     "files": [
       "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
     ]
   },
-  "pages/PortfolioPage.js -> gsap": {
-    "id": "pages/PortfolioPage.js -> gsap",
+  "pages/index.js -> ../utils/animations": {
+    "id": "pages/index.js -> ../utils/animations",
     "files": [
-      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
-    ]
-  },
-  "pages/PortfolioPage.js -> gsap/ScrollTrigger": {
-    "id": "pages/PortfolioPage.js -> gsap/ScrollTrigger",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
-    ]
-  },
-  "pages/about.js -> gsap": {
-    "id": "pages/about.js -> gsap",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
-    ]
-  },
-  "pages/about.js -> gsap/ScrollTrigger": {
-    "id": "pages/about.js -> gsap/ScrollTrigger",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
-    ]
-  },
-  "pages/portfolio.js -> gsap": {
-    "id": "pages/portfolio.js -> gsap",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
-    ]
-  },
-  "pages/portfolio.js -> gsap/ScrollTrigger": {
-    "id": "pages/portfolio.js -> gsap/ScrollTrigger",
-    "files": [
-      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+      "static/chunks/_pages-dir-browser_src_utils_animations_js.js"
     ]
   },
   "utils/animations.js -> gsap": {

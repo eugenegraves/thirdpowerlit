@@ -252,11 +252,20 @@ const HomePage = () => {
           </div>
           <a 
             href="/contact" 
-            className={`cta-button px-8 py-3 text-white text-lg font-medium rounded-full ${styles.btnAnimation} ${styles.fadeInUp} ${styles['delay-400']}`}
+            className={`cta-button px-8 py-3 text-white text-lg font-medium rounded-full ${styles.fadeInUp} ${styles['delay-400']}`}
             style={{ 
               background: 'linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C)',
               color: '#000',
-              fontWeight: '600'
+              fontWeight: '600',
+              transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+            }}
+            onMouseOver={(e) => {
+              e.currentTarget.style.transform = 'translateY(-3px)';
+              e.currentTarget.style.boxShadow = '0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08)';
+            }}
+            onMouseOut={(e) => {
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = 'none';
             }}
           >
             Let's Work Together

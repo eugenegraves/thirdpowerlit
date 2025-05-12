@@ -1,12 +1,9 @@
 {
   "version": 2,
-  "buildCommand": "npm run vercel-build",
+  "buildCommand": "npm run build",
   "installCommand": "npm install --legacy-peer-deps",
-  "framework": "create-react-app",
-  "outputDirectory": "build",
-  "rewrites": [
-    { "source": "/(.*)", "destination": "/index.html" }
-  ],
+  "framework": "nextjs",
+  "outputDirectory": ".next",
   "github": {
     "silent": true
   },

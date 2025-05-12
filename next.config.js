@@ -5,7 +5,7 @@ const nextConfig = {
   images: {
     domains: [], // Add domains if needed for external images
     remotePatterns: [],
-    unoptimized: process.env.NODE_ENV === 'development', // For easier local development
+    unoptimized: false, // Ensure images are optimized in production
   },
   webpack(config) {
     // Configure webpack to handle image imports properly
@@ -27,9 +27,34 @@ const nextConfig = {
   },
   async redirects() {
     return [
-      // Add any needed redirects here
+      {
+        source: "/home",
+        destination: "/",
+        permanent: true
+      },
+      {
+        source: "/portfolio.html",
+        destination: "/portfolio",
+        permanent: true
+      },
+      {
+        source: "/services.html",
+        destination: "/services",
+        permanent: true
+      },
+      {
+        source: "/about.html",
+        destination: "/about",
+        permanent: true
+      },
+      {
+        source: "/contact.html",
+        destination: "/contact",
+        permanent: true
+      }
     ];
   },
+  output: 'standalone', // Optimize for Vercel deployment
 }
 
 module.exports = nextConfig 
