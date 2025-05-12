@@ -10,8 +10,10 @@ import styles from '../styles/animations.module.css';
 // Updated image paths to use the correct images directory
 const heroImage = '/images/hero/hero-image.jpg';
 const trackAppImage = '/images/portfolio/app-screenshot.jpg';
-const dataVisualizationImage = '/images/portfolio/data-visualization.jpg';
+const dataVisualizationImage = '/assets/data-image-1.png';
 const albumCoverImage = '/images/portfolio/album-cover.jpg';
+const trackTeamImage = '/assets/Track-App-Screenshot.png';
+const queenOfLensesImage = '/assets/qol-homepage.png';
 
 const HomePage = () => {
   const heroRef = useRef(null);
@@ -348,8 +350,8 @@ const HomePage = () => {
             <div className={`project-card glass rounded-lg overflow-hidden ${styles.hoverGlow}`}>
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <ImageWrapper 
-                  src={dataVisualizationImage}
-                  alt="Project 1" 
+                  src={queenOfLensesImage}
+                  alt="Queen of Lenses Photography" 
                   fill={true}
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -357,11 +359,12 @@ const HomePage = () => {
               </div>
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Photography</span>
-                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Branding</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">React</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Vite</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">CSS Modules</span>
                 </div>
-                <h3 className={`text-xl font-bold mb-2 text-gold ${styles.fadeIn}`}>Luminescence Collection</h3>
-                <p className="text-gray-300 mb-4">A high-end photography project for a luxury jewelry brand featuring minimalist compositions and dramatic lighting.</p>
+                <h3 className={`text-xl font-bold mb-2 text-gold ${styles.fadeIn}`}>Queen of Lenses Photography</h3>
+                <p className="text-gray-300 mb-4">User-focused website for Queen of Lenses, showcasing Sabine Wancique's premium photography services. Built with React and Vite, the site features a luxurious Rose Gold, White, and Black design.</p>
                 <Link href="/portfolio">
                   <span className="text-gold hover:text-yellow-400 font-medium inline-flex items-center transition duration-300">
                     View Details
@@ -377,8 +380,8 @@ const HomePage = () => {
             <div className={`project-card glass rounded-lg overflow-hidden ${styles.hoverGlow}`}>
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <ImageWrapper 
-                  src={trackAppImage}
-                  alt="Project 2" 
+                  src={trackTeamImage}
+                  alt="Marlboro Track & Field Team Management System" 
                   fill={true}
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -386,11 +389,12 @@ const HomePage = () => {
               </div>
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Web Design</span>
-                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">UI/UX</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Web App</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Dashboard</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Management System</span>
                 </div>
-                <h3 className={`text-xl font-bold mb-2 text-gold ${styles.fadeIn}`}>Ethereal E-commerce</h3>
-                <p className="text-gray-300 mb-4">A fully responsive e-commerce website with intuitive navigation and seamless checkout experience for a boutique clothing brand.</p>
+                <h3 className={`text-xl font-bold mb-2 text-gold ${styles.fadeIn}`}>Marlboro Track & Field Team Management System</h3>
+                <p className="text-gray-300 mb-4">A comprehensive back-office management solution designed for Marlboro's coaching staff to streamline athletic program operations.</p>
                 <Link href="/portfolio">
                   <span className="text-gold hover:text-yellow-400 font-medium inline-flex items-center transition duration-300">
                     View Details
@@ -406,8 +410,8 @@ const HomePage = () => {
             <div className={`project-card glass rounded-lg overflow-hidden ${styles.hoverGlow}`}>
               <div className="relative aspect-[4/3] w-full overflow-hidden">
                 <ImageWrapper 
-                  src={albumCoverImage}
-                  alt="Project 3" 
+                  src={dataVisualizationImage}
+                  alt="Data Visualization Project" 
                   fill={true}
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
@@ -415,11 +419,12 @@ const HomePage = () => {
               </div>
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-4">
-                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Product Design</span>
-                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Editing</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Data Visualization</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Interactive</span>
+                  <span className="text-xs px-3 py-1 bg-secondary text-white rounded-full">Responsive</span>
                 </div>
-                <h3 className={`text-xl font-bold mb-2 text-gold ${styles.fadeIn}`}>Pristine Product Series</h3>
-                <p className="text-gray-300 mb-4">A sophisticated product photography campaign featuring high-end cosmetics with detailed retouching and creative compositions.</p>
+                <h3 className={`text-xl font-bold mb-2 text-gold ${styles.fadeIn}`}>A Data Visualization: Nutrition → Obesity</h3>
+                <p className="text-gray-300 mb-4">A data visualization project that explores the relationship between nutrition and obesity. The project uses a dataset of nutrition and obesity statistics to create a visual representation of the relationship between the two.</p>
                 <Link href="/portfolio">
                   <span className="text-gold hover:text-yellow-400 font-medium inline-flex items-center transition duration-300">
                     View Details
