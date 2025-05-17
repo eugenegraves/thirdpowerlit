@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import PageTransition from '../components/PageTransition';
 import ScrollAnimationObserver from '../components/ScrollAnimationObserver';
+import emailjs from '@emailjs/browser';
 
 function MyApp({ Component, pageProps, router }) {
   const [mounted, setMounted] = useState(false);
@@ -15,6 +16,13 @@ function MyApp({ Component, pageProps, router }) {
   // Handle client-side rendering
   useEffect(() => {
     setMounted(true);
+    
+    // Initialize EmailJS with simpler approach
+    if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      // Simple initialization, no advanced options
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+      console.log('EmailJS initialized in _app.js');
+    }
     
     // Scroll to top on page change
     const handleRouteChangeComplete = () => {

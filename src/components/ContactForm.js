@@ -1,9 +1,14 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styles from '../styles/animations.module.css';
 import Button from './Button';
 import emailjs from '@emailjs/browser';
 
+// VERY EXPLICIT DEBUG LOG
+console.log('████████ ContactForm.js loaded ████████');
+
 const ContactForm = ({ onSubmitSuccess, className = '' }) => {
+  console.log('████████ ContactForm component rendering ████████');
+  
   const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
@@ -12,6 +17,19 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
     message: '',
     serviceType: 'photography'
   });
+  
+  // Initialize EmailJS in the component as a fallback
+  useEffect(() => {
+    console.log('████████ ContactForm useEffect running ████████');
+    
+    if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      // Simple initialization, no advanced options
+      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+      console.log('████████ EmailJS initialized in ContactForm ████████');
+    } else {
+      console.error('████████ EmailJS initialization FAILED - publicKey missing ████████');
+    }
+  }, []);
   
   const [formStatus, setFormStatus] = useState({
     submitting: false,
@@ -66,9 +84,14 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     
+    console.log('████████ Form submitted ████████');
+    
     if (!validateForm()) {
+      console.log('████████ Form validation failed ████████');
       return;
     }
+    
+    console.log('████████ Form validation passed ████████');
     
     setFormStatus({
       submitting: true,
@@ -77,14 +100,34 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
       message: ''
     });
 
+    // Debug: Log the environment variables (without showing full keys)
+    console.log("████████ EmailJS Params ████████", {
+      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? `✓ Set` : "✗ Not Set",
+      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? `✓ Set` : "✗ Not Set",
+      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? "✓ Set" : "✗ Not Set"
+    });
+
     try {
-      // Replace these parameters with your actual EmailJS service, template, and public key
+      // Create the template parameters directly
+      const templateParams = {
+        name: formData.name,
+        email: formData.email,
+        subject: formData.subject,
+        message: formData.message,
+        serviceType: formData.serviceType
+      };
+      
+      console.log('████████ Sending with template params ████████', templateParams);
+      
+      // SIMPLER APPROACH: use the sendForm method with the form reference
+      console.log('████████ Using sendForm method ████████');
       const result = await emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, 
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, 
-        form.current, 
-        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        form.current
       );
+      
+      console.log('████████ Email sent successfully ████████', result.text);
       
       setFormStatus({
         submitting: false,
@@ -107,11 +150,12 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
         onSubmitSuccess();
       }
     } catch (error) {
+      console.error('████████ EmailJS Error ████████', error);
       setFormStatus({
         submitting: false,
         submitted: true,
         success: false,
-        message: `There was an error submitting your message: ${error.text}`
+        message: `There was an error submitting your message: ${error.text || error.message || "Unknown error"}`
       });
     }
   };
