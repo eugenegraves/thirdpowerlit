@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styles from '../styles/animations.module.css';
 import Button from './Button';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = ({ onSubmitSuccess, className = '' }) => {
+  const form = useRef();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -75,10 +77,14 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
       message: ''
     });
 
-    // Simulate form submission
     try {
-      // In a real implementation, you would send data to your API or form endpoint
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      // Replace these parameters with your actual EmailJS service, template, and public key
+      const result = await emailjs.sendForm(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, 
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, 
+        form.current, 
+        process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY
+      );
       
       setFormStatus({
         submitting: false,
@@ -105,7 +111,7 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
         submitting: false,
         submitted: true,
         success: false,
-        message: 'There was an error submitting your message. Please try again.'
+        message: `There was an error submitting your message: ${error.text}`
       });
     }
   };
@@ -126,7 +132,7 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
         </div>
       )}
       
-      <form onSubmit={handleSubmit}>
+      <form ref={form} onSubmit={handleSubmit}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div 
             className="form-group"
