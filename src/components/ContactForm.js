@@ -1,11 +1,11 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styles from '../styles/animations.module.css';
 import Button from './Button';
-import emailjs from '@emailjs/browser';
 
 // VERY EXPLICIT DEBUG LOG
 console.log('████████ ContactForm.js loaded ████████');
 
+// Use the same CDN approach but with environment variables
 const ContactForm = ({ onSubmitSuccess, className = '' }) => {
   console.log('████████ ContactForm component rendering ████████');
   
@@ -18,19 +18,6 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
     serviceType: 'photography'
   });
   
-  // Initialize EmailJS in the component as a fallback
-  useEffect(() => {
-    console.log('████████ ContactForm useEffect running ████████');
-    
-    if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
-      // Simple initialization, no advanced options
-      emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
-      console.log('████████ EmailJS initialized in ContactForm ████████');
-    } else {
-      console.error('████████ EmailJS initialization FAILED - publicKey missing ████████');
-    }
-  }, []);
-  
   const [formStatus, setFormStatus] = useState({
     submitting: false,
     submitted: false,
@@ -39,6 +26,29 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
   });
 
   const [errors, setErrors] = useState({});
+  const [emailJSReady, setEmailJSReady] = useState(false);
+  
+  // Check if EmailJS is ready
+  useEffect(() => {
+    const checkEmailJSReady = () => {
+      if (typeof window !== 'undefined' && window.emailjs) {
+        console.log('---------------- EmailJS detected on window object ----------------');
+        window.emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+        setEmailJSReady(true);
+        return true;
+      }
+      return false;
+    };
+
+    // Check immediately
+    if (!checkEmailJSReady()) {
+      // If not ready, check again after a delay
+      const timer = setTimeout(() => {
+        checkEmailJSReady();
+      }, 1000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
 
   const validateForm = () => {
     const newErrors = {};
@@ -81,17 +91,16 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    
-    console.log('████████ Form submitted ████████');
+    console.log('---------------- Form submitted ----------------');
     
     if (!validateForm()) {
-      console.log('████████ Form validation failed ████████');
+      console.log('---------------- Form validation failed ----------------');
       return;
     }
     
-    console.log('████████ Form validation passed ████████');
+    console.log('---------------- Form validation passed ----------------');
     
     setFormStatus({
       submitting: true,
@@ -100,62 +109,96 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
       message: ''
     });
 
-    // Debug: Log the environment variables (without showing full keys)
-    console.log("████████ EmailJS Params ████████", {
-      serviceId: process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID ? `✓ Set` : "✗ Not Set",
-      templateId: process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID ? `✓ Set` : "✗ Not Set",
-      publicKey: process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY ? "✓ Set" : "✗ Not Set"
-    });
-
-    try {
-      // Create the template parameters directly
-      const templateParams = {
-        name: formData.name,
-        email: formData.email,
-        subject: formData.subject,
-        message: formData.message,
-        serviceType: formData.serviceType
-      };
+    // Check if all required env vars are set
+    if (!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID || 
+        !process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID || 
+        !process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+      console.error('---------------- Missing EmailJS environment variables ----------------');
+      console.error('SERVICE_ID exists:', !!process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID);
+      console.error('TEMPLATE_ID exists:', !!process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID);
+      console.error('PUBLIC_KEY exists:', !!process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
       
-      console.log('████████ Sending with template params ████████', templateParams);
-      
-      // SIMPLER APPROACH: use the sendForm method with the form reference
-      console.log('████████ Using sendForm method ████████');
-      const result = await emailjs.sendForm(
-        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
-        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
-        form.current
-      );
-      
-      console.log('████████ Email sent successfully ████████', result.text);
-      
-      setFormStatus({
-        submitting: false,
-        submitted: true,
-        success: true,
-        message: 'Thank you for your message! We will be in touch soon.'
-      });
-      
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        serviceType: 'photography'
-      });
-      
-      // Call optional success callback
-      if (onSubmitSuccess) {
-        onSubmitSuccess();
-      }
-    } catch (error) {
-      console.error('████████ EmailJS Error ████████', error);
       setFormStatus({
         submitting: false,
         submitted: true,
         success: false,
-        message: `There was an error submitting your message: ${error.text || error.message || "Unknown error"}`
+        message: 'Configuration error. Please contact support.'
+      });
+      return;
+    }
+    
+    console.log('---------------- All environment variables are set ----------------');
+    
+    if (!window.emailjs) {
+      console.error('---------------- window.emailjs is not available ----------------');
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: false,
+        message: 'Technical error. Please try again later.'
+      });
+      return;
+    }
+    
+    // Create template parameters from the form data
+    const templateParams = {
+      name: formData.name,
+      email: formData.email,
+      subject: formData.subject,
+      message: formData.message,
+      serviceType: formData.serviceType
+    };
+    
+    console.log('---------------- Sending email with params:', templateParams, '----------------');
+    
+    try {
+      // Use send with templateParams instead of sendForm
+      window.emailjs.send(
+        process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID,
+        process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID,
+        templateParams
+      )
+      .then((result) => {
+        console.log('---------------- Email sent successfully! ----------------', result.text);
+        setFormStatus({
+          submitting: false,
+          submitted: true,
+          success: true,
+          message: 'Thank you for your message! We will be in touch soon.'
+        });
+        
+        // Reset form after successful submission
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: '',
+          serviceType: 'photography'
+        });
+        
+        // Call optional success callback
+        if (onSubmitSuccess) {
+          onSubmitSuccess();
+        }
+      })
+      .catch((error) => {
+        console.error('---------------- EmailJS Error from Promise ----------------', error);
+        console.error('Error details:', JSON.stringify(error));
+        setFormStatus({
+          submitting: false,
+          submitted: true,
+          success: false,
+          message: `There was an error submitting your message: ${error.text || error.message || "Unknown error"}`
+        });
+      });
+    } catch (error) {
+      console.error('---------------- EmailJS Error from Try/Catch ----------------', error);
+      console.error('Error details:', JSON.stringify(error));
+      setFormStatus({
+        submitting: false,
+        submitted: true,
+        success: false,
+        message: `There was an error submitting your message: ${error.message || "Unknown error"}`
       });
     }
   };

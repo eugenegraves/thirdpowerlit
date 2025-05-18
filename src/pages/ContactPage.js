@@ -1,73 +1,12 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { ImageWrapper } from '../components/ImageWrapper';
 import { NextSeo } from 'next-seo';
+import ContactForm from '../components/ContactForm';
 
 const ContactPage = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-    serviceType: 'photography'
-  });
-  
-  const [formStatus, setFormStatus] = useState({
-    submitting: false,
-    submitted: false,
-    success: false,
-    message: ''
-  });
-
   const contactHeaderRef = useRef(null);
   const contactFormRef = useRef(null);
   const contactInfoRef = useRef(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prevState => ({
-      ...prevState,
-      [name]: value
-    }));
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setFormStatus({
-      submitting: true,
-      submitted: false,
-      success: false,
-      message: ''
-    });
-
-    // Simulate form submission
-    try {
-      // In a real implementation, you would send data to your API or form endpoint
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      setFormStatus({
-        submitting: false,
-        submitted: true,
-        success: true,
-        message: 'Thank you for your message! We will be in touch soon.'
-      });
-      
-      // Reset form after successful submission
-      setFormData({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-        serviceType: 'photography'
-      });
-    } catch (error) {
-      setFormStatus({
-        submitting: false,
-        submitted: true,
-        success: false,
-        message: 'There was an error submitting your message. Please try again.'
-      });
-    }
-  };
 
   useEffect(() => {
     // Dynamically import GSAP only on client-side
@@ -121,23 +60,6 @@ const ContactPage = () => {
                 start: 'top 80%',
               },
               ease: 'power3.out'
-            }
-          );
-          
-          gsap.fromTo(
-            '.contact-form-wrapper .form-group',
-            { opacity: 0, y: 20 },
-            { 
-              opacity: 1, 
-              y: 0, 
-              duration: 0.8,
-              stagger: 0.1,
-              delay: 0.3,
-              scrollTrigger: {
-                trigger: contactFormRef.current,
-                start: 'top 80%',
-              },
-              ease: 'power2.out'
             }
           );
         }
@@ -239,91 +161,16 @@ const ContactPage = () => {
         <div className="container mx-auto px-4">
           <div className="flex flex-col lg:flex-row gap-12">
             {/* Contact Form */}
-            <div className="w-full lg:w-1/2">
-              <div className="glass p-8 rounded-lg">
-                <h3 className="text-2xl font-bold text-gold mb-6">Send Us a Message</h3>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div>
-                    <label htmlFor="name" className="block text-gray-300 mb-2">Your Name</label>
-                    <input
-                      type="text"
-                      id="name"
-                      name="name"
-                      value={formData.name}
-                      onChange={handleChange}
-                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="email" className="block text-gray-300 mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      value={formData.email}
-                      onChange={handleChange}
-                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
-                      required
-                    />
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="service" className="block text-gray-300 mb-2">Service You're Interested In</label>
-                    <select
-                      id="service"
-                      name="service"
-                      value={formData.service}
-                      onChange={handleChange}
-                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
-                    >
-                      <option value="">Select a Service</option>
-                      <option value="web-development">Web Development</option>
-                      <option value="photography">Photography</option>
-                      <option value="photo-editing">Photo Editing</option>
-                      <option value="other">Other</option>
-                    </select>
-                  </div>
-                  
-                  <div>
-                    <label htmlFor="message" className="block text-gray-300 mb-2">Your Message</label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      rows="5"
-                      className="w-full bg-gray-900/50 border border-gray-700 rounded-md px-4 py-3 text-white focus:outline-none focus:ring-2 focus:ring-gold/50"
-                      required
-                    ></textarea>
-                  </div>
-                  
-                  <div>
-                    <button
-                      type="submit"
-                      className="w-full bg-transparent border-2 border-gold text-gold py-3 px-6 rounded-md hover:bg-gradient-to-r hover:from-gold/80 hover:to-amber-500/80 hover:text-white transition-all duration-300"
-                      disabled={formStatus.submitting}
-                    >
-                      {formStatus.submitting ? 'Sending...' : 'Send Message'}
-                    </button>
-                  </div>
-
-                  {formStatus.submitted && (
-                    <div className={`mt-4 p-4 rounded-md ${formStatus.success ? 'bg-green-900/30 text-green-400' : 'bg-red-900/30 text-red-400'}`}>
-                      {formStatus.message}
-                    </div>
-                  )}
-                </form>
-              </div>
+            <div className="w-full lg:w-1/2 contact-form-wrapper" ref={contactFormRef}>
+              <ContactForm />
             </div>
             
             {/* Contact Info */}
-            <div className="w-full lg:w-1/2 space-y-8">
-              <div className="glass p-8 rounded-lg">
+            <div className="w-full lg:w-1/2 space-y-8" ref={contactInfoRef}>
+              <div className="glass p-8 rounded-lg contact-info">
                 <h3 className="text-2xl font-bold text-gold mb-6">Contact Information</h3>
                 <div className="space-y-4">
-                  <div className="flex items-start">
+                  <div className="flex items-start contact-info-item">
                     <div className="text-gold mr-4">
                       <i className="fas fa-map-marker-alt text-xl"></i>
                     </div>
@@ -333,7 +180,7 @@ const ContactPage = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-start">
+                  <div className="flex items-start contact-info-item">
                     <div className="text-gold mr-4">
                       <i className="fas fa-envelope text-xl"></i>
                     </div>
@@ -343,7 +190,7 @@ const ContactPage = () => {
                     </div>
                   </div>
                   
-                  <div className="flex items-start">
+                  <div className="flex items-start contact-info-item">
                     <div className="text-gold mr-4">
                       <i className="fas fa-clock text-xl"></i>
                     </div>

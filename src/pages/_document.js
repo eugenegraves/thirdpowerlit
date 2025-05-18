@@ -2,7 +2,7 @@ import { Html, Head, Main, NextScript } from 'next/document';
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="en" className="dark">
       <Head>
         {/* Google Tag Manager */}
         <script dangerouslySetInnerHTML={{
@@ -210,6 +210,8 @@ export default function Document() {
             }
           `
         }} />
+        {/* Add EmailJS CDN script tag */}
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
       </Head>
       <body className="bg-primary text-white">
         {/* Google Tag Manager (noscript) */}

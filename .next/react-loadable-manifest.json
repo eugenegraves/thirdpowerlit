@@ -11,6 +11,30 @@
       "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
     ]
   },
+  "pages/ContactPage.js -> gsap": {
+    "id": "pages/ContactPage.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/ContactPage.js -> gsap/ScrollTrigger": {
+    "id": "pages/ContactPage.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
+  "pages/contact.js -> gsap": {
+    "id": "pages/contact.js -> gsap",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_index_js.js"
+    ]
+  },
+  "pages/contact.js -> gsap/ScrollTrigger": {
+    "id": "pages/contact.js -> gsap/ScrollTrigger",
+    "files": [
+      "static/chunks/_pages-dir-browser_node_modules_gsap_ScrollTrigger_js.js"
+    ]
+  },
   "utils/animations.js -> gsap": {
     "id": "utils/animations.js -> gsap",
     "files": [
