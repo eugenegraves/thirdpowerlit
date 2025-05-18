@@ -8,6 +8,7 @@ import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import PageTransition from '../components/PageTransition';
 import ScrollAnimationObserver from '../components/ScrollAnimationObserver';
+import EmailScript from '../components/EmailScript';
 
 function MyApp({ Component, pageProps, router }) {
   const [mounted, setMounted] = useState(false);
@@ -16,7 +17,7 @@ function MyApp({ Component, pageProps, router }) {
   useEffect(() => {
     setMounted(true);
     
-    // EmailJS is now initialized directly in the ContactForm component
+    // EmailJS is now handled by the EmailScript component
     
     // Scroll to top on page change
     const handleRouteChangeComplete = () => {
@@ -40,6 +41,7 @@ function MyApp({ Component, pageProps, router }) {
         <Head>
           <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
         </Head>
+        <EmailScript />
         <div className="flex flex-col min-h-screen">
           <Navbar />
           <main className="flex-grow">
@@ -56,6 +58,7 @@ function MyApp({ Component, pageProps, router }) {
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </Head>
+      <EmailScript />
       <ScrollAnimationObserver>
         <div className="flex flex-col min-h-screen">
           <Navbar />
