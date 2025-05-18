@@ -211,7 +211,12 @@ export default function Document() {
           `
         }} />
         {/* Add EmailJS CDN script tag */}
-        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+        <script 
+          id="emailjs-sdk" 
+          src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" 
+          strategy="beforeInteractive"
+          async
+        ></script>
       </Head>
       <body className="bg-primary text-white">
         {/* Google Tag Manager (noscript) */}

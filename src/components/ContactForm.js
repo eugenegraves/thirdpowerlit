@@ -30,23 +30,47 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
   
   // Check if EmailJS is ready
   useEffect(() => {
+    let attempts = 0;
+    const maxAttempts = 5;
+    
     const checkEmailJSReady = () => {
       if (typeof window !== 'undefined' && window.emailjs) {
         console.log('---------------- EmailJS detected on window object ----------------');
-        window.emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
-        setEmailJSReady(true);
-        return true;
+        try {
+          if (process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY) {
+            window.emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
+            console.log('---------------- EmailJS initialized successfully ----------------');
+            setEmailJSReady(true);
+            return true;
+          } else {
+            console.error('---------------- EmailJS PUBLIC_KEY not found ----------------');
+            console.error('Available env vars:', 
+              Object.keys(process.env)
+                .filter(key => key.startsWith('NEXT_PUBLIC_'))
+                .join(', ')
+            );
+          }
+        } catch (error) {
+          console.error('---------------- Error initializing EmailJS ----------------', error);
+        }
       }
       return false;
     };
 
     // Check immediately
-    if (!checkEmailJSReady()) {
-      // If not ready, check again after a delay
-      const timer = setTimeout(() => {
-        checkEmailJSReady();
+    if (!checkEmailJSReady() && attempts < maxAttempts) {
+      // If not ready, set up an interval to check periodically
+      const intervalId = setInterval(() => {
+        attempts++;
+        if (checkEmailJSReady() || attempts >= maxAttempts) {
+          clearInterval(intervalId);
+          if (attempts >= maxAttempts) {
+            console.error('---------------- Failed to initialize EmailJS after maximum attempts ----------------');
+          }
+        }
       }, 1000);
-      return () => clearTimeout(timer);
+      
+      return () => clearInterval(intervalId);
     }
   }, []);
 
@@ -122,7 +146,7 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
         submitting: false,
         submitted: true,
         success: false,
-        message: 'Configuration error. Please contact support.'
+        message: 'Configuration error. Please contact support. (ENV_MISSING)'
       });
       return;
     }
@@ -131,12 +155,26 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
     
     if (!window.emailjs) {
       console.error('---------------- window.emailjs is not available ----------------');
-      setFormStatus({
-        submitting: false,
-        submitted: true,
-        success: false,
-        message: 'Technical error. Please try again later.'
-      });
+      
+      // Try to load the script dynamically as a fallback
+      const script = document.createElement('script');
+      script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js';
+      script.async = true;
+      script.onload = () => {
+        console.log('---------------- EmailJS script loaded dynamically ----------------');
+        // Try again after script loads
+        setTimeout(() => handleSubmit(e), 1000);
+      };
+      script.onerror = () => {
+        console.error('---------------- Failed to load EmailJS script dynamically ----------------');
+        setFormStatus({
+          submitting: false,
+          submitted: true,
+          success: false,
+          message: 'Technical error. Please try again later. (SCRIPT_LOAD_ERROR)'
+        });
+      };
+      document.head.appendChild(script);
       return;
     }
     
@@ -150,6 +188,8 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
     };
     
     console.log('---------------- Sending email with params:', templateParams, '----------------');
+    console.log('---------------- Using SERVICE_ID:', process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID, '----------------');
+    console.log('---------------- Using TEMPLATE_ID:', process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID, '----------------');
     
     try {
       // Use send with templateParams instead of sendForm
@@ -188,7 +228,7 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
           submitting: false,
           submitted: true,
           success: false,
-          message: `There was an error submitting your message: ${error.text || error.message || "Unknown error"}`
+          message: `There was an error submitting your message: ${error.text || error.message || "Unknown error"} (API_ERROR)`
         });
       });
     } catch (error) {
@@ -198,7 +238,7 @@ const ContactForm = ({ onSubmitSuccess, className = '' }) => {
         submitting: false,
         submitted: true,
         success: false,
-        message: `There was an error submitting your message: ${error.message || "Unknown error"}`
+        message: `There was an error submitting your message: ${error.message || "Unknown error"} (JS_ERROR)`
       });
     }
   };
